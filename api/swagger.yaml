@@ -1,68 +1,45 @@
 ---
 swagger: "2.0"
 info:
-  version: "0.0.3"
+  version: "0.0.5"
   title: "Customer Portal API"
+basePath: "/v1"
+schemes:
+- "https"
+- "http"
 paths:
-  /chargeOfSales:
-    get:
-      description: "担当営業情報を提供する"
-      operationId: "chargeOfSalesGET"
-      parameters:
-      - name: "id"
-        in: "query"
-        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）"
-        required: true
-        type: "string"
-      - name: "customerid"
-        in: "query"
-        description: "顧客ID（会社IDと同値？）"
-        required: false
-        type: "string"
-      - name: "email"
-        in: "query"
-        description: "リクエスターのEmailアドレス"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/inline_response_200"
-      x-swagger-router-controller: "Default"
   /company:
     get:
-      description: "会社情報を提供"
+      description: "検索条件に一致した会社情報を提供。検索条件は[ name | id ]"
       operationId: "companyGET"
       parameters:
-      - name: "id"
+      - name: "name"
         in: "query"
-        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）"
-        required: true
-        type: "string"
-      - name: "customerid"
-        in: "query"
-        description: "顧客ID"
+        description: "会社名称"
         required: false
         type: "string"
-      - name: "email"
+      - name: "id"
         in: "query"
-        description: "リクエスターのEmailアドレス"
+        description: "顧客ID(customerId)"
         required: false
         type: "string"
       responses:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/inline_response_200_1"
+            $ref: "#/definitions/Company"
+        400:
+          description: "Invalid query"
+        404:
+          description: "Company not found"
       x-swagger-router-controller: "Default"
-  /companyList:
+  /company/list/{email}:
     get:
       description: "担当する顧客会社名リストを提供"
-      operationId: "companyListGET"
+      operationId: "companyListEmailGET"
       parameters:
       - name: "email"
-        in: "query"
+        in: "path"
         description: "リクエスター（NetOne担当者）のEmailアドレス"
         required: true
         type: "string"
@@ -70,89 +47,39 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/inline_response_200_2"
+            $ref: "#/definitions/CompanyList"
+        404:
+          description: "Company not found"
       x-swagger-router-controller: "Default"
-  /customer:
+  /company/{companyid}:
     get:
-      description: "顧客情報を提供"
-      operationId: "customerGET"
+      description: "会社IDに従った会社情報を提供"
+      operationId: "companyCompanyidGET"
       parameters:
-      - name: "email"
-        in: "query"
-        description: "顧客のEmailアドレスを検索キーとして設定"
+      - name: "companyid"
+        in: "path"
+        description: "会社ID"
         required: true
         type: "string"
         format: "string"
       responses:
         200:
-          description: "Successful response"
-          schema:
-            $ref: "#/definitions/inline_response_200_3"
-      x-swagger-router-controller: "Default"
-  /mContract:
-    get:
-      description: "保守契約情報を提供"
-      operationId: "mContractGET"
-      parameters:
-      - name: "id"
-        in: "query"
-        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）"
-        required: true
-        type: "string"
-      - name: "customerid"
-        in: "query"
-        description: "顧客ID"
-        required: false
-        type: "string"
-      - name: "email"
-        in: "query"
-        description: "リクエスターのEmailアドレス"
-        required: false
-        type: "string"
-      - name: "contract"
-        in: "query"
-        description: "個別契約番号"
-        required: true
-        type: "string"
-      responses:
-        200:
           description: "OK"
           schema:
-            $ref: "#/definitions/inline_response_200_4"
+            $ref: "#/definitions/Company"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Company not found"
       x-swagger-router-controller: "Default"
-  /mContractList:
+  /contract/list:
     get:
       description: "保守契約リスト情報を提供"
-      operationId: "mContractListGET"
+      operationId: "contractListGET"
       parameters:
-      - name: "id"
-        in: "query"
-        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）"
-        required: true
-        type: "string"
-      - name: "customerid"
-        in: "query"
-        description: "顧客ID"
-        required: false
-        type: "string"
-      - name: "email"
-        in: "query"
-        description: "リクエスターのEmailアドレス"
-        required: false
-        type: "string"
-      - name: "contract"
-        in: "query"
-        description: "個別契約番号"
-        required: false
-        type: "string"
       - name: "serial"
         in: "query"
         description: "シリアル番号"
-        required: false
-        type: "string"
-      - name: "contractor"
-        in: "query"
-        description: "契約先名称"
         required: false
         type: "string"
       - name: "customerContractNo"
@@ -175,21 +102,86 @@ paths:
         description: "契約終了日"
         required: false
         type: "string"
-      - name: "index"
-        in: "query"
-        description: "保守契約一覧を取得する際の開始位置（最初から取得する場合は0を設定）"
-        required: false
-        type: "integer"
-      - name: "max"
-        in: "query"
-        description: "最大該当数（最大取得数：デフォルト値は50最大値は500）"
-        required: false
-        type: "integer"
       responses:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/inline_response_200_5"
+            $ref: "#/definitions/ContractList"
+      x-swagger-router-controller: "Default"
+  /contract/list/{companyId}:
+    get:
+      description: "保守契約リスト情報を提供"
+      operationId: "contractListCompanyIdGET"
+      parameters:
+      - name: "companyId"
+        in: "path"
+        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ContractList"
+      x-swagger-router-controller: "Default"
+  /contract/{contractId}:
+    get:
+      description: "保守契約情報を提供"
+      operationId: "contractContractIdGET"
+      parameters:
+      - name: "contractId"
+        in: "path"
+        description: "契約番号"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Contract"
+      x-swagger-router-controller: "Default"
+  /customer:
+    get:
+      description: "顧客情報を提供"
+      operationId: "customerGET"
+      parameters:
+      - name: "email"
+        in: "query"
+        description: "顧客のEmailアドレスを検索キーとして設定"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Customer"
+      x-swagger-router-controller: "Default"
+  /customer/{customerid}:
+    get:
+      description: "顧客IDに従った顧客情報を提供"
+      operationId: "customerCustomeridGET"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "customerid"
+        in: "path"
+        description: "顧客ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Customer"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Customer not found"
       x-swagger-router-controller: "Default"
   /product:
     get:
@@ -215,31 +207,18 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/inline_response_200_6"
+            $ref: "#/definitions/Product"
+        404:
+          description: "Company not found"
       x-swagger-router-controller: "Default"
-  /productList:
+  /product/list:
     get:
       description: "保守契約済み製品リスト情報を提供"
       operationId: "productListGET"
       parameters:
-      - name: "id"
-        in: "query"
-        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）"
-        required: true
-        type: "string"
-      - name: "customerid"
-        in: "query"
-        description: "顧客ID"
-        required: false
-        type: "string"
       - name: "email"
         in: "query"
         description: "リクエスターのEmailアドレス"
-        required: false
-        type: "string"
-      - name: "contract"
-        in: "query"
-        description: "個別契約番号"
         required: false
         type: "string"
       - name: "serial"
@@ -281,15 +260,289 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/inline_response_200_7"
+            $ref: "#/definitions/ProductList"
+      x-swagger-router-controller: "Default"
+  /product/list/{companyId}:
+    get:
+      description: "保守契約済み製品リスト情報を提供"
+      operationId: "productListCompanyIdGET"
+      parameters:
+      - name: "companyId"
+        in: "path"
+        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ProductList"
+      x-swagger-router-controller: "Default"
+  /product/{productId}:
+    get:
+      description: "製品IDに従った商品詳細情報を提供"
+      operationId: "productProductIdGET"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "製品ID"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Product"
+      x-swagger-router-controller: "Default"
+  /sales:
+    get:
+      description: "担当営業情報を提供する"
+      operationId: "salesGET"
+      parameters:
+      - name: "email"
+        in: "query"
+        description: "顧客のEmailアドレス（アカウントID）"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+      x-swagger-router-controller: "Default"
+  /sales/{companyid}:
+    get:
+      description: "担当営業情報を提供する"
+      operationId: "salesCompanyidGET"
+      parameters:
+      - name: "companyid"
+        in: "path"
+        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200"
       x-swagger-router-controller: "Default"
 definitions:
-  inline_response_200_5:
+  Customer:
+    type: "object"
+    required:
+    - "companyid"
+    - "email"
+    - "firstname"
+    properties:
+      id:
+        type: "string"
+        format: "string"
+        description: "顧客ID"
+      firstname:
+        type: "string"
+        format: "string"
+        description: "顧客の名前"
+      lastname:
+        type: "string"
+        format: "string"
+        description: "顧客の苗字"
+      email:
+        type: "string"
+        format: "string"
+        description: "Emailアドレス"
+      phone:
+        type: "string"
+        format: "string"
+        description: "電話番号"
+      mobile:
+        type: "string"
+        format: "string"
+        description: "携帯電話番号または緊急連絡先番号"
+      fax:
+        type: "string"
+        format: "string"
+        description: "FAX番号"
+      companyid:
+        type: "string"
+        format: "string"
+        description: "所属会社ID（HANAで管理している会社コード（取引先ID、受注先IDなど）を想定）"
+      active:
+        type: "boolean"
+        description: "この顧客データが有効であれば正を設定（デフォルトは正）"
+        default: true
+  Company:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "string"
+        format: "string"
+        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）"
+      name:
+        type: "string"
+        format: "string"
+        description: "会社名称"
+      zip:
+        type: "string"
+        format: "string"
+        description: "郵便番号"
+      pref:
+        type: "string"
+        format: "string"
+        description: "都道府県"
+      address1:
+        type: "string"
+        format: "string"
+        description: "住所１"
+      address2:
+        type: "string"
+        format: "string"
+        description: "住所２"
+      addresss3:
+        type: "string"
+        format: "string"
+        description: "住所３"
+      phone:
+        type: "string"
+        format: "string"
+        description: "代表電話番号"
+      fax:
+        type: "string"
+        format: "string"
+        description: "FAX番号"
+      active:
+        type: "boolean"
+        description: "このデータが現在有効であれば正を設定"
+        default: true
+  CompanyList:
+    type: "object"
+    required:
+    - "email"
+    - "total"
+    properties:
+      email:
+        type: "string"
+      total:
+        type: "integer"
+        format: "int32"
+      Companies:
+        type: "array"
+        items:
+          $ref: "#/definitions/Company"
+  Sales:
+    type: "object"
+    required:
+    - "email"
+    - "salesid"
+    properties:
+      salesid:
+        type: "string"
+        description: "担当営業ID（社員番号？）"
+      email:
+        type: "string"
+        description: "担当営業のEmailアドレス"
+      firstname:
+        type: "string"
+        description: "担当営業の苗字"
+      lastname:
+        type: "string"
+        description: "担当営業の名前"
+  Contract:
+    type: "object"
+    required:
+    - "contract"
+    - "contractId"
+    properties:
+      contractId:
+        type: "string"
+        description: "契約ID"
+      contract:
+        type: "string"
+        description: "個別契約番号"
+      companyid:
+        type: "string"
+        description: "会社ID"
+      typecode:
+        type: "integer"
+        description: "契約種別コード"
+      type:
+        type: "string"
+        description: "契約種別（ex. 保守）"
+      mastercontract:
+        type: "string"
+        description: "基本契約番号"
+      note:
+        type: "string"
+        description: "テキスト（備忘欄？）"
+      orderby:
+        type: "string"
+        description: "発注先"
+      responsibleparty:
+        type: "string"
+        description: "顧客担当"
+      caller:
+        type: "string"
+        description: "コール元会社名"
+      emergencycaller:
+        type: "string"
+        description: "夜間・休日コール元情報"
+      chargeofsales:
+        type: "string"
+        description: "担当営業"
+      chargeofenginner:
+        type: "string"
+        description: "担当技術"
+      customercontractno:
+        type: "string"
+        description: "顧客契約番号"
+      status:
+        type: "string"
+        description: "ステータス"
+      amountof:
+        type: "integer"
+        description: "契約金額"
+      automaticrenewal:
+        type: "boolean"
+        description: "自動更新"
+      startdate:
+        type: "string"
+        description: "契約開始日"
+      enddate:
+        type: "string"
+        description: "契約終了日"
+      enteringdate:
+        type: "string"
+        description: "締結日"
+      fixeddate:
+        type: "string"
+        description: "契約確定日"
+      eol:
+        type: "boolean"
+        description: "EOL保守の有無"
+      typeofconstraction:
+        type: "string"
+        description: "構築区分"
+      subject:
+        type: "string"
+        description: "契約名称"
+      enduser:
+        type: "string"
+        description: "エンドユーザー"
+    description: "保守契約情報"
+  ContractList:
+    type: "object"
     required:
     - "id"
     - "numof"
     - "total"
     properties:
+      id:
+        type: "string"
+        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先ID、納入先コード等で使用しているIDを想定）Inputさ\
+          れたidと同じ値となる"
       total:
         type: "integer"
         description: "検索条件に一致した件数"
@@ -298,174 +551,107 @@ definitions:
         description: "データの開始位置"
       numof:
         type: "integer"
+        format: "int64"
         description: "データの提供数"
-      id:
-        type: "string"
-        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先ID、納入先コード等で使用しているIDを想定）Inputさ\
-          れたidと同じ値となる"
       Contracts:
         type: "array"
         items:
-          $ref: "#/definitions/inline_response_200_5_Contracts"
-  inline_response_200_6:
+          $ref: "#/definitions/Contract"
+  Product:
+    type: "object"
     required:
     - "contract"
     - "productid"
     properties:
-      eol:
-        type: "boolean"
-        description: "EOL"
       productid:
         type: "string"
         description: "製品ID"
-      dedicatedmaintenanceno:
+      productName:
         type: "string"
-        description: "専用保守部材管理番号"
+        description: "製品テキスト"
       contract:
         type: "string"
         description: "個別契約番号"
+      modelNo:
+        type: "string"
+        description: "メーカー型番"
+      startDate:
+        type: "string"
+        description: "保守開始日"
+      endDate:
+        type: "string"
+        description: "保守終了日"
       eos:
         type: "boolean"
         description: "EOS"
-      sla:
-        type: "string"
-        description: "SLA"
-      modelno:
-        type: "string"
-        description: "メーカー型番"
-      servicetypecode:
-        type: "string"
-        description: "サービス種別コード"
-      moniteringtype:
-        type: "string"
-        description: "モニタリング種別"
-      startdate:
-        type: "string"
-        description: "保守開始日"
-      servicemenu:
-        type: "string"
-        description: "メニュー名"
-      qa:
+      eol:
         type: "boolean"
-        description: "QA有無"
-      servicetype:
-        type: "string"
-        description: "サービス種別"
-      enddate:
-        type: "string"
-        description: "保守終了日"
-      accountmgmtno:
-        type: "string"
-        description: "アカウント管理番号"
-      shippingno:
-        type: "string"
-        description: "出荷番号"
-      serial:
-        type: "string"
-        description: "シリアル番号"
-      productname:
-        type: "string"
-        description: "製品テキスト"
-      shippingdate:
-        type: "string"
-        description: "出荷日時"
+        description: "EOL"
       individualcontract:
         type: "string"
         description: "製品／個別条件書"
+      servicemenu:
+        type: "string"
+        description: "メニュー名"
       servicemodelno:
         type: "string"
         description: "サービス型番"
       productlistprice:
         type: "string"
         description: "製品定価"
-  inline_response_200_5_Contracts:
-    required:
-    - "contract"
-    - "subject"
-    properties:
-      chargeofenginner:
+      servicetypecode:
         type: "string"
-        description: "担当技術"
-      enddate:
+        description: "サービス種別コード"
+      servicetype:
         type: "string"
-        description: "契約終了日"
-      enduser:
+        description: "サービス種別"
+      sla:
         type: "string"
-        description: "エンドユーザー"
-      subject:
+        description: "SLA"
+      accountmgmtno:
         type: "string"
-        description: "契約名称"
-      contract:
+        description: "アカウント管理番号"
+      moniteringtype:
         type: "string"
-        description: "個別契約番号"
-      chargeofsales:
+        description: "モニタリング種別"
+      dedicatedmaintenanceno:
         type: "string"
-        description: "担当営業"
-      customercontractno:
+        description: "専用保守部材管理番号"
+      qa:
+        type: "boolean"
+        description: "QA有無"
+      shippingno:
         type: "string"
-        description: "顧客契約番号"
-      startdate:
+        description: "出荷番号"
+      shippingdate:
         type: "string"
-        description: "契約開始日"
-  inline_response_200_7:
-    required:
-    - "id"
-    - "numof"
-    - "total"
+        description: "出荷日時"
+      serial:
+        type: "string"
+        description: "シリアル番号"
+      typeofservice:
+        type: "string"
+        description: "サービス種別"
+      address:
+        type: "string"
+        description: "住所"
+    description: "製品詳細情報"
+  ProductList:
+    type: "object"
     properties:
       total:
         type: "integer"
-        description: "検索条件に一致した件数"
+        format: "int64"
       index:
         type: "integer"
-        description: "データの開始位置"
+        format: "int64"
       numof:
         type: "integer"
-        description: "データの提供数"
-      Product:
+        format: "int64"
+      Products:
         type: "array"
         items:
-          $ref: "#/definitions/inline_response_200_7_Product"
-      id:
-        type: "string"
-        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先ID、納入先コード等で使用しているIDを想定）Inputさ\
-          れたidと同じ値となる"
-  inline_response_200_1:
-    required:
-    - "id"
-    - "name"
-    properties:
-      zip:
-        type: "string"
-        description: "郵便番号"
-      addresss3:
-        type: "string"
-        description: "住所３"
-      address2:
-        type: "string"
-        description: "住所２"
-      phone:
-        type: "string"
-        description: "代表電話番号"
-      address1:
-        type: "string"
-        description: "住所１"
-      pref:
-        type: "string"
-        description: "都道府県"
-      name:
-        type: "string"
-        description: "会社名称"
-      active:
-        type: "boolean"
-        description: "このデータが現在有効であれば正を設定"
-      id:
-        type: "string"
-        description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）Inputされたidと\
-          同じ値となる"
-      fax:
-        type: "string"
-        description: "FAX番号"
+          $ref: "#/definitions/Product"
   inline_response_200:
     required:
     - "id"
@@ -475,191 +661,7 @@ definitions:
         type: "integer"
         description: "全担当営業数（検索条件に一致した件数）"
       Sales:
-        type: "array"
-        items:
-          $ref: "#/definitions/inline_response_200_Sales"
+        $ref: "#/definitions/Sales"
       id:
         type: "string"
         description: "会社ID"
-  inline_response_200_2:
-    required:
-    - "email"
-    - "total"
-    properties:
-      total:
-        type: "integer"
-        format: "int32"
-      Companies:
-        type: "array"
-        items:
-          $ref: "#/definitions/inline_response_200_2_Companies"
-      email:
-        type: "string"
-  inline_response_200_2_Companies:
-    required:
-    - "id"
-    - "name"
-    properties:
-      name:
-        type: "string"
-        description: "会社名称"
-      id:
-        type: "string"
-        description: "会社ID（顧客ID）"
-  inline_response_200_3:
-    required:
-    - "companyid"
-    - "email"
-    - "firstname"
-    properties:
-      firstname:
-        type: "string"
-        description: "顧客の名前"
-      companyid:
-        type: "string"
-        description: "会社ID（HANAで管理している会社コード（取引先ID、受注先IDなど）を想定）"
-      phone:
-        type: "string"
-        description: "電話番号"
-      mobile:
-        type: "string"
-        description: "携帯電話番号または緊急連絡先"
-      active:
-        type: "boolean"
-        description: "この顧客データが有効な場合には、正を設定"
-      id:
-        type: "string"
-        description: "顧客ID"
-      fax:
-        type: "string"
-        description: "FAX番号"
-      email:
-        type: "string"
-        description: "Emailアドレス"
-      lastname:
-        type: "string"
-        description: "顧客の苗字"
-  inline_response_200_4:
-    required:
-    - "contract"
-    properties:
-      note:
-        type: "string"
-        description: "テキスト（備忘欄？）"
-      chargeofenginner:
-        type: "string"
-        description: "担当技術"
-      eol:
-        type: "boolean"
-        description: "EOL保守の有無"
-      contract:
-        type: "string"
-        description: "個別契約番号"
-      customercontractno:
-        type: "string"
-        description: "顧客契約番号"
-      amountof:
-        type: "integer"
-        description: "契約金額"
-      orderby:
-        type: "string"
-        description: "発注先"
-      responsibleparty:
-        type: "string"
-        description: "顧客担当"
-      type:
-        type: "string"
-        description: "契約種別（ex. 保守）"
-      startdate:
-        type: "string"
-        description: "契約開始日"
-      emergencycaller:
-        type: "string"
-        description: "夜間・休日コール元情報"
-      typecode:
-        type: "integer"
-        description: "契約種別コード"
-      caller:
-        type: "string"
-        description: "コール元会社名"
-      enddate:
-        type: "string"
-        description: "契約終了日"
-      fixeddate:
-        type: "string"
-        description: "契約確定日"
-      chargeofsales:
-        type: "string"
-        description: "担当営業"
-      contractid:
-        type: "string"
-        description: "契約ID"
-      typeofconstraction:
-        type: "string"
-        description: "構築区分"
-      id:
-        type: "string"
-        description: "会社ID"
-      automaticrenewal:
-        type: "boolean"
-        description: "自動更新"
-      enteringdate:
-        type: "string"
-        description: "締結日"
-      mastercontract:
-        type: "string"
-        description: "基本契約番号"
-      status:
-        type: "string"
-        description: "ステータス"
-  inline_response_200_Sales:
-    required:
-    - "email"
-    - "salesid"
-    properties:
-      firstname:
-        type: "string"
-        description: "担当営業の苗字"
-      salesid:
-        type: "string"
-        description: "担当営業ID（社員番号？）"
-      email:
-        type: "string"
-        description: "担当営業のEmailアドレス"
-      lastname:
-        type: "string"
-        description: "担当営業の名前"
-  inline_response_200_7_Product:
-    required:
-    - "productid"
-    properties:
-      typeofservice:
-        type: "string"
-        description: "サービス種別"
-      address:
-        type: "string"
-        description: "住所"
-      enddate:
-        type: "string"
-        description: "契約終了日"
-      eol:
-        type: "boolean"
-        description: "EOL"
-      productid:
-        type: "string"
-        description: "製品ID"
-      serial:
-        type: "string"
-        description: "シリアル番号"
-      eos:
-        type: "boolean"
-        description: "EOS"
-      productname:
-        type: "string"
-        description: "製品テキスト"
-      sla:
-        type: "string"
-        description: "SLA"
-      startdate:
-        type: "string"
-        description: "契約開始日"

@@ -14,8 +14,8 @@ module.exports.companyListEmailGET = function companyListEmailGET (req, res, nex
   Default.companyListEmailGET(req.swagger.params, res, next);
 };
 
-module.exports.companyCompanyidGET = function companyCompanyidGET (req, res, next) {
-  Default.companyCompanyidGET(req.swagger.params, res, next);
+module.exports.companyCompanyIdGET = function companyCompanyIdGET (req, res, next) {
+  Default.companyCompanyIdGET(req.swagger.params, res, next);
 };
 
 module.exports.contractListGET = function contractListGET (req, res, next) {
@@ -34,8 +34,8 @@ module.exports.customerGET = function customerGET (req, res, next) {
   Default.customerGET(req.swagger.params, res, next);
 };
 
-module.exports.customerCustomeridGET = function customerCustomeridGET (req, res, next) {
-  Default.customerCustomeridGET(req.swagger.params, res, next);
+module.exports.customerCustomerIdGET = function customerCustomerIdGET (req, res, next) {
+  Default.customerCustomerIdGET(req.swagger.params, res, next);
 };
 
 module.exports.productGET = function productGET (req, res, next) {
@@ -58,6 +58,6 @@ module.exports.salesGET = function salesGET (req, res, next) {
   Default.salesGET(req.swagger.params, res, next);
 };
 
-module.exports.salesCompanyidGET = function salesCompanyidGET (req, res, next) {
-  Default.salesCompanyidGET(req.swagger.params, res, next);
+module.exports.salesCompanyIdGET = function salesCompanyIdGET (req, res, next) {
+  Default.salesCompanyIdGET(req.swagger.params, res, next);
 };

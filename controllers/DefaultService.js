@@ -69,10 +69,10 @@ exports.companyListEmailGET = function(args, res, next) {
   
 }
 
-exports.companyCompanyidGET = function(args, res, next) {
+exports.companyCompanyIdGET = function(args, res, next) {
   /**
    * parameters expected in the args:
-  * companyid (String)
+  * companyId (String)
   **/
   
   
@@ -106,9 +106,9 @@ exports.contractListGET = function(args, res, next) {
    * parameters expected in the args:
   * serial (String)
   * customerContractNo (String)
-  * enduser (String)
-  * startdate (String)
-  * enddate (String)
+  * endUser (String)
+  * startDate (String)
+  * endDate (String)
   **/
   
   
@@ -121,7 +121,7 @@ exports.contractListGET = function(args, res, next) {
   "Contracts" : [ {
     "note" : "契約締結に関する特記事項およびメモ：",
     "chargeofenginner" : "9001101",
-    "eol" : flase,
+    "eol" : false,
     "subject" : "サブジェクト：",
     "amountof" : 10000000,
     "type" : "契約種別：製品保守",
@@ -174,7 +174,7 @@ exports.contractListCompanyIdGET = function(args, res, next) {
   "Contracts" : [ {
     "note" : "契約締結に関する特記事項およびメモ：",
     "chargeofenginner" : "9001101",
-    "eol" : flase,
+    "eol" : false,
     "subject" : "サブジェクト：",
     "amountof" : 10000000,
     "type" : "契約種別：製品保守",
@@ -222,7 +222,7 @@ exports.contractContractIdGET = function(args, res, next) {
   examples['application/json'] = {
     "note" : "契約締結に関する特記事項およびメモ：",
     "chargeofenginner" : "9001101",
-    "eol" : flase,
+    "eol" : false,
     "subject" : "サブジェクト：",
     "amountof" : 10000000,
     "type" : "契約種別：製品保守",
@@ -289,11 +289,10 @@ exports.customerGET = function(args, res, next) {
   
 }
 
-exports.customerCustomeridGET = function(args, res, next) {
+exports.customerCustomerIdGET = function(args, res, next) {
   /**
    * parameters expected in the args:
-  * apiKey (Long)
-  * customerid (Long)
+  * customerId (Long)
   **/
   
   
@@ -324,8 +323,7 @@ exports.customerCustomeridGET = function(args, res, next) {
 exports.productGET = function(args, res, next) {
   /**
    * parameters expected in the args:
-  * productid (String)
-  * customerid (String)
+  * customerId (String)
   * email (String)
   **/
   
@@ -374,10 +372,10 @@ exports.productListGET = function(args, res, next) {
    * parameters expected in the args:
   * email (String)
   * serial (String)
-  * startdate (String)
-  * enddate (String)
-  * productid (String)
-  * productname (String)
+  * startDate (String)
+  * endDate (String)
+  * productId (String)
+  * productName (String)
   * index (Integer)
   * max (Integer)
   **/
@@ -554,10 +552,10 @@ exports.salesGET = function(args, res, next) {
   
 }
 
-exports.salesCompanyidGET = function(args, res, next) {
+exports.salesCompanyIdGET = function(args, res, next) {
   /**
    * parameters expected in the args:
-  * companyid (String)
+  * companyId (String)
   **/
   
   

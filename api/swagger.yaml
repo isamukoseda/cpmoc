@@ -1,12 +1,9 @@
 ---
 swagger: "2.0"
 info:
-  version: "0.0.6"
+  version: "0.0.7"
   title: "Customer Portal API"
 basePath: "/v1"
-schemes:
-- "https"
-- "http"
 paths:
   /company:
     get:
@@ -170,6 +167,8 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/Customer"
+        400:
+          description: "Invalid query supplied"
         404:
           description: "Customer not found"
       x-swagger-router-controller: "Default"

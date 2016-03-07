@@ -10,16 +10,16 @@ exports.companyGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "id" : "CPY9101",
-  "name" : "株式会社丸丸丸丸",
-  "zip" : "111-1111",
-  "pref" : "東京都",
-  "address1" : "千代田区",
-  "address2" : "丸の内",
-  "addresss3" : "丸々ビルディング",
-  "phone" : "03-1111-1111",
-  "fax" : "03-1111-1112",
-  "active" : true
+  "zip" : "aeiou",
+  "addresss3" : "aeiou",
+  "address2" : "aeiou",
+  "phone" : "aeiou",
+  "address1" : "aeiou",
+  "pref" : "aeiou",
+  "name" : "aeiou",
+  "active" : true,
+  "id" : "aeiou",
+  "fax" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {
@@ -42,20 +42,20 @@ exports.companyListEmailGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "email" : "requester@example.com",
-  "total" : 1,
+  "total" : 123,
   "Companies" : [ {
-  "id" : "CPY9101",
-  "name" : "株式会社丸丸丸丸",
-  "zip" : "111-1111",
-  "pref" : "東京都",
-  "address1" : "千代田区",
-  "address2" : "丸の内",
-  "addresss3" : "丸々ビルディング",
-  "phone" : "03-1111-1111",
-  "fax" : "03-1111-1112",
-  "active" : true
-  } ]
+    "zip" : "aeiou",
+    "addresss3" : "aeiou",
+    "address2" : "aeiou",
+    "phone" : "aeiou",
+    "address1" : "aeiou",
+    "pref" : "aeiou",
+    "name" : "aeiou",
+    "active" : true,
+    "id" : "aeiou",
+    "fax" : "aeiou"
+  } ],
+  "email" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {
@@ -78,16 +78,16 @@ exports.companyCompanyIdGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "id" : "CPY9101",
-  "name" : "株式会社丸丸丸丸",
-  "zip" : "111-1111",
-  "pref" : "東京都",
-  "address1" : "千代田区",
-  "address2" : "丸の内",
-  "addresss3" : "丸々ビルディング",
-  "phone" : "03-1111-1111",
-  "fax" : "03-1111-1112",
-  "active" : true
+  "zip" : "aeiou",
+  "addresss3" : "aeiou",
+  "address2" : "aeiou",
+  "phone" : "aeiou",
+  "address1" : "aeiou",
+  "pref" : "aeiou",
+  "name" : "aeiou",
+  "active" : true,
+  "id" : "aeiou",
+  "fax" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {
@@ -114,36 +114,36 @@ exports.contractListGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "total" : 1,
-  "index" : 1,
-  "numof" : 1,
-  "id" : "CPY9101",
+  "total" : "",
+  "index" : "",
+  "numOf" : 123456789,
+  "id" : "aeiou",
   "Contracts" : [ {
-    "note" : "契約締結に関する特記事項およびメモ：",
-    "chargeofenginner" : "9001101",
-    "eol" : false,
-    "subject" : "サブジェクト：",
-    "amountof" : 10000000,
-    "type" : "契約種別：製品保守",
-    "startdate" : "2015.4.1",
-    "emergencycaller" : "緊急連絡先：",
-    "typecode" : 1001,
-    "companyid" : "会社ID",
-    "chargeofsales" : "9000101",
-    "automaticrenewal" : true,
-    "enteringdate" : "2015.4.1",
-    "mastercontract" : "BC9101-00000-000001",
-    "enduser" : "エンドユーザー情報：",
-    "contract" : "DISC9101-0000-00001",
-    "customercontractno" : "顧客契約番号：",
-    "orderby" : "発注元：",
-    "responsibleparty" : "顧客担当：",
-    "caller" : "コール元会社名",
-    "enddate" : "2017.3.31",
-    "fixeddate" : "2015.3.1",
-    "contractId" : "CONT00009101",
-    "typeofconstraction" : "構築区分：",
-    "status" : "契約中"
+    "note" : "aeiou",
+    "eol" : true,
+    "fixedDate" : "aeiou",
+    "endDate" : "aeiou",
+    "subject" : "aeiou",
+    "responsibleParty" : "aeiou",
+    "orderBy" : "aeiou",
+    "emergencyCaller" : "aeiou",
+    "type" : "aeiou",
+    "chargeOfSales" : "aeiou",
+    "enteringDate" : "aeiou",
+    "masterContract" : "aeiou",
+    "contract" : "aeiou",
+    "automaticRenewal" : true,
+    "amountOf" : "",
+    "typeOfConstraction" : "aeiou",
+    "chargeOfEnginner" : "aeiou",
+    "typeCode" : "",
+    "companyId" : "aeiou",
+    "caller" : "aeiou",
+    "endUser" : "aeiou",
+    "contractId" : "aeiou",
+    "customerContractno" : "aeiou",
+    "startDate" : "aeiou",
+    "status" : "aeiou"
   } ]
 };
   
@@ -167,36 +167,36 @@ exports.contractListCompanyIdGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "total" : 1,
-  "index" : 1,
-  "numof" : 1,
-  "id" : "CPY9101",
+  "total" : "",
+  "index" : "",
+  "numOf" : 123456789,
+  "id" : "aeiou",
   "Contracts" : [ {
-    "note" : "契約締結に関する特記事項およびメモ：",
-    "chargeofenginner" : "9001101",
-    "eol" : false,
-    "subject" : "サブジェクト：",
-    "amountof" : 10000000,
-    "type" : "契約種別：製品保守",
-    "startdate" : "2015.4.1",
-    "emergencycaller" : "緊急連絡先：",
-    "typecode" : 1001,
-    "companyid" : "会社ID",
-    "chargeofsales" : "9000101",
-    "automaticrenewal" : true,
-    "enteringdate" : "2015.4.1",
-    "mastercontract" : "BC9101-00000-000001",
-    "enduser" : "エンドユーザー情報：",
-    "contract" : "DISC9101-0000-00001",
-    "customercontractno" : "顧客契約番号：",
-    "orderby" : "発注元：",
-    "responsibleparty" : "顧客担当：",
-    "caller" : "コール元会社名",
-    "enddate" : "2017.3.31",
-    "fixeddate" : "2015.3.1",
-    "contractId" : "CONT00009101",
-    "typeofconstraction" : "構築区分：",
-    "status" : "契約中"
+    "note" : "aeiou",
+    "eol" : true,
+    "fixedDate" : "aeiou",
+    "endDate" : "aeiou",
+    "subject" : "aeiou",
+    "responsibleParty" : "aeiou",
+    "orderBy" : "aeiou",
+    "emergencyCaller" : "aeiou",
+    "type" : "aeiou",
+    "chargeOfSales" : "aeiou",
+    "enteringDate" : "aeiou",
+    "masterContract" : "aeiou",
+    "contract" : "aeiou",
+    "automaticRenewal" : true,
+    "amountOf" : "",
+    "typeOfConstraction" : "aeiou",
+    "chargeOfEnginner" : "aeiou",
+    "typeCode" : "",
+    "companyId" : "aeiou",
+    "caller" : "aeiou",
+    "endUser" : "aeiou",
+    "contractId" : "aeiou",
+    "customerContractno" : "aeiou",
+    "startDate" : "aeiou",
+    "status" : "aeiou"
   } ]
 };
   
@@ -220,31 +220,31 @@ exports.contractContractIdGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-    "note" : "契約締結に関する特記事項およびメモ：",
-    "chargeofenginner" : "9001101",
-    "eol" : false,
-    "subject" : "サブジェクト：",
-    "amountof" : 10000000,
-    "type" : "契約種別：製品保守",
-    "startdate" : "2015.4.1",
-    "emergencycaller" : "緊急連絡先：",
-    "typecode" : 1001,
-    "companyid" : "会社ID",
-    "chargeofsales" : "9000101",
-    "automaticrenewal" : true,
-    "enteringdate" : "2015.4.1",
-    "mastercontract" : "BC9101-00000-000001",
-    "enduser" : "エンドユーザー情報：",
-    "contract" : "DISC9101-0000-00001",
-    "customercontractno" : "顧客契約番号：",
-    "orderby" : "発注元：",
-    "responsibleparty" : "顧客担当：",
-    "caller" : "コール元会社名",
-    "enddate" : "2017.3.31",
-    "fixeddate" : "2015.3.1",
-    "contractId" : "CONT00009101",
-    "typeofconstraction" : "構築区分：",
-    "status" : "契約中"
+  "note" : "aeiou",
+  "eol" : true,
+  "fixedDate" : "aeiou",
+  "endDate" : "aeiou",
+  "subject" : "aeiou",
+  "responsibleParty" : "aeiou",
+  "orderBy" : "aeiou",
+  "emergencyCaller" : "aeiou",
+  "type" : "aeiou",
+  "chargeOfSales" : "aeiou",
+  "enteringDate" : "aeiou",
+  "masterContract" : "aeiou",
+  "contract" : "aeiou",
+  "automaticRenewal" : true,
+  "amountOf" : "",
+  "typeOfConstraction" : "aeiou",
+  "chargeOfEnginner" : "aeiou",
+  "typeCode" : "",
+  "companyId" : "aeiou",
+  "caller" : "aeiou",
+  "endUser" : "aeiou",
+  "contractId" : "aeiou",
+  "customerContractno" : "aeiou",
+  "startDate" : "aeiou",
+  "status" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {
@@ -267,15 +267,15 @@ exports.customerGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "id" : "CUS9101-0001",
-  "firstname" : "太郎",
-  "lastname" : "山田",
-  "email" : "taro.yamada@marumaru.com",
-  "phone" : "03-9101-0001",
-  "mobile" : "080-9101-0001",
-  "fax" : "03-9101-0002",
-  "companyid" : "CPY9101",
-  "active" : true
+  "firstname" : "aeiou",
+  "companyId" : "aeiou",
+  "phone" : "aeiou",
+  "mobile" : "aeiou",
+  "active" : true,
+  "id" : "aeiou",
+  "fax" : "aeiou",
+  "email" : "aeiou",
+  "lastname" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {
@@ -298,15 +298,15 @@ exports.customerCustomerIdGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "id" : "CUS9101-0001",
-  "firstname" : "太郎",
-  "lastname" : "山田",
-  "email" : "taro.yamada@marumaru.com",
-  "phone" : "03-9101-0001",
-  "mobile" : "080-9101-0001",
-  "fax" : "03-9101-0002",
-  "companyid" : "CPY9101",
-  "active" : true
+  "firstname" : "aeiou",
+  "companyId" : "aeiou",
+  "phone" : "aeiou",
+  "mobile" : "aeiou",
+  "active" : true,
+  "id" : "aeiou",
+  "fax" : "aeiou",
+  "email" : "aeiou",
+  "lastname" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {
@@ -330,30 +330,30 @@ exports.productGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "productid" : "製品ID",
-  "productName" : "製品テキスト",
-  "modelNo" : "メーカー型番",
-  "serial" : "シリアル番号",
-  "contract" : "個別契約番号",
-  "servicemenu" : "メニュー名",
-  "typeofservice" : "サービス種別",
-  "servicetype" : "サービス種別",
-  "sla" : "SLA",
-  "servicemodelno" : "サービス型番",
-  "servicetypecode" : "サービス種別コード",
-  "moniteringtype" : "モニタリング種別",
-  "accountmgmtno" : "アカウント管理番号",
-  "dedicatedmaintenanceno" : "専用保守部材管理番号",
-  "individualcontract" : "製品／個別条件書",
-  "address" : "設置場所：東京都",
-  "shippingno" : "出荷番号",
-  "shippingdate" : "出荷日時",
-  "startDate" : "2015.4.1",
-  "endDate" : "保守終了日",
-  "eos" : true,
+  "serviceType" : "aeiou",
   "eol" : true,
+  "address" : "aeiou",
+  "productId" : "aeiou",
+  "dedicatedMaintenanceNo" : "aeiou",
+  "shippingDate" : "aeiou",
+  "endDate" : "aeiou",
+  "contract" : "aeiou",
+  "eos" : true,
+  "sla" : "aeiou",
+  "modelNo" : "aeiou",
+  "productListPrice" : "aeiou",
+  "productName" : "aeiou",
+  "accountMgmtNo" : "aeiou",
   "qa" : true,
-  "productlistprice" : "製品定価"
+  "typeOfService" : "aeiou",
+  "serviceModelNo" : "aeiou",
+  "shippingNo" : "aeiou",
+  "serial" : "aeiou",
+  "individualContract" : "aeiou",
+  "moniteringType" : "aeiou",
+  "startDate" : "aeiou",
+  "serviceMenu" : "aeiou",
+  "serviceTypeCode" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {
@@ -383,35 +383,35 @@ exports.productListGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "index" : 1,
-  "numof" : 1,
-  "total" : 1,
+  "total" : 123456789,
   "Products" : [ {
-  "productid" : "製品ID",
-  "productName" : "製品テキスト",
-  "modelNo" : "メーカー型番",
-  "serial" : "シリアル番号",
-  "contract" : "個別契約番号",
-  "servicemenu" : "メニュー名",
-  "typeofservice" : "サービス種別",
-  "servicetype" : "サービス種別",
-  "sla" : "SLA",
-  "servicemodelno" : "サービス型番",
-  "servicetypecode" : "サービス種別コード",
-  "moniteringtype" : "モニタリング種別",
-  "accountmgmtno" : "アカウント管理番号",
-  "dedicatedmaintenanceno" : "専用保守部材管理番号",
-  "individualcontract" : "製品／個別条件書",
-  "address" : "設置場所：東京都",
-  "shippingno" : "出荷番号",
-  "shippingdate" : "出荷日時",
-  "startDate" : "2015.4.1",
-  "endDate" : "保守終了日",
-  "eos" : true,
-  "eol" : true,
-  "qa" : true,
-  "productlistprice" : "製品定価"
-  } ]
+    "serviceType" : "aeiou",
+    "eol" : true,
+    "address" : "aeiou",
+    "productId" : "aeiou",
+    "dedicatedMaintenanceNo" : "aeiou",
+    "shippingDate" : "aeiou",
+    "endDate" : "aeiou",
+    "contract" : "aeiou",
+    "eos" : true,
+    "sla" : "aeiou",
+    "modelNo" : "aeiou",
+    "productListPrice" : "aeiou",
+    "productName" : "aeiou",
+    "accountMgmtNo" : "aeiou",
+    "qa" : true,
+    "typeOfService" : "aeiou",
+    "serviceModelNo" : "aeiou",
+    "shippingNo" : "aeiou",
+    "serial" : "aeiou",
+    "individualContract" : "aeiou",
+    "moniteringType" : "aeiou",
+    "startDate" : "aeiou",
+    "serviceMenu" : "aeiou",
+    "serviceTypeCode" : "aeiou"
+  } ],
+  "index" : 123456789,
+  "numOf" : 123456789
 };
   
   if(Object.keys(examples).length > 0) {
@@ -434,35 +434,35 @@ exports.productListCompanyIdGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "index" : 1,
-  "numof" : 1,
-  "total" : 1,
+  "total" : 123456789,
   "Products" : [ {
-  "productid" : "製品ID",
-  "productName" : "製品テキスト",
-  "modelNo" : "メーカー型番",
-  "serial" : "シリアル番号",
-  "contract" : "個別契約番号",
-  "servicemenu" : "メニュー名",
-  "typeofservice" : "サービス種別",
-  "servicetype" : "サービス種別",
-  "sla" : "SLA",
-  "servicemodelno" : "サービス型番",
-  "servicetypecode" : "サービス種別コード",
-  "moniteringtype" : "モニタリング種別",
-  "accountmgmtno" : "アカウント管理番号",
-  "dedicatedmaintenanceno" : "専用保守部材管理番号",
-  "individualcontract" : "製品／個別条件書",
-  "address" : "設置場所：東京都",
-  "shippingno" : "出荷番号",
-  "shippingdate" : "出荷日時",
-  "startDate" : "2015.4.1",
-  "endDate" : "保守終了日",
-  "eos" : true,
-  "eol" : true,
-  "qa" : true,
-  "productlistprice" : "製品定価"
-  } ]
+    "serviceType" : "aeiou",
+    "eol" : true,
+    "address" : "aeiou",
+    "productId" : "aeiou",
+    "dedicatedMaintenanceNo" : "aeiou",
+    "shippingDate" : "aeiou",
+    "endDate" : "aeiou",
+    "contract" : "aeiou",
+    "eos" : true,
+    "sla" : "aeiou",
+    "modelNo" : "aeiou",
+    "productListPrice" : "aeiou",
+    "productName" : "aeiou",
+    "accountMgmtNo" : "aeiou",
+    "qa" : true,
+    "typeOfService" : "aeiou",
+    "serviceModelNo" : "aeiou",
+    "shippingNo" : "aeiou",
+    "serial" : "aeiou",
+    "individualContract" : "aeiou",
+    "moniteringType" : "aeiou",
+    "startDate" : "aeiou",
+    "serviceMenu" : "aeiou",
+    "serviceTypeCode" : "aeiou"
+  } ],
+  "index" : 123456789,
+  "numOf" : 123456789
 };
   
   if(Object.keys(examples).length > 0) {
@@ -485,30 +485,30 @@ exports.productProductIdGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "productid" : "製品ID",
-  "productName" : "製品テキスト",
-  "modelNo" : "メーカー型番",
-  "serial" : "シリアル番号",
-  "contract" : "個別契約番号",
-  "servicemenu" : "メニュー名",
-  "typeofservice" : "サービス種別",
-  "servicetype" : "サービス種別",
-  "sla" : "SLA",
-  "servicemodelno" : "サービス型番",
-  "servicetypecode" : "サービス種別コード",
-  "moniteringtype" : "モニタリング種別",
-  "accountmgmtno" : "アカウント管理番号",
-  "dedicatedmaintenanceno" : "専用保守部材管理番号",
-  "individualcontract" : "製品／個別条件書",
-  "address" : "設置場所：東京都",
-  "shippingno" : "出荷番号",
-  "shippingdate" : "出荷日時",
-  "startDate" : "2015.4.1",
-  "endDate" : "保守終了日",
-  "eos" : true,
+  "serviceType" : "aeiou",
   "eol" : true,
+  "address" : "aeiou",
+  "productId" : "aeiou",
+  "dedicatedMaintenanceNo" : "aeiou",
+  "shippingDate" : "aeiou",
+  "endDate" : "aeiou",
+  "contract" : "aeiou",
+  "eos" : true,
+  "sla" : "aeiou",
+  "modelNo" : "aeiou",
+  "productListPrice" : "aeiou",
+  "productName" : "aeiou",
+  "accountMgmtNo" : "aeiou",
   "qa" : true,
-  "productlistprice" : "製品定価"
+  "typeOfService" : "aeiou",
+  "serviceModelNo" : "aeiou",
+  "shippingNo" : "aeiou",
+  "serial" : "aeiou",
+  "individualContract" : "aeiou",
+  "moniteringType" : "aeiou",
+  "startDate" : "aeiou",
+  "serviceMenu" : "aeiou",
+  "serviceTypeCode" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {
@@ -531,14 +531,14 @@ exports.salesGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "total" : 1,
-  "id" : "CPY9101",
+  "total" : 123456789,
   "Sales" : {
-    "salesid" : "9000101",
-    "email" : "taro.yamada@example.com",
-    "firstname" : "太郎",
-    "lastname" : "山田"
-  }
+    "firstname" : "aeiou",
+    "salesId" : "aeiou",
+    "email" : "aeiou",
+    "lastname" : "aeiou"
+  },
+  "id" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {
@@ -561,14 +561,14 @@ exports.salesCompanyIdGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "total" : 1,
-  "id" : "CPY9101",
+  "total" : "",
   "Sales" : {
-    "salesid" : "9000101",
-    "email" : "taro.yamada@example.com",
-    "firstname" : "太郎",
-    "lastname" : "山田"
-  }
+    "firstname" : "aeiou",
+    "salesId" : "aeiou",
+    "email" : "aeiou",
+    "lastname" : "aeiou"
+  },
+  "id" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {

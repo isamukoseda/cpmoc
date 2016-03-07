@@ -3,7 +3,8 @@
 var url = require('url');
 
 
-var Default = require('./DefaultService');
+// var Default = require('./DefaultService');
+var Default = require('./MocService');
 
 
 module.exports.companyGET = function companyGET (req, res, next) {

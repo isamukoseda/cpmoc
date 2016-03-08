@@ -1,60 +1,35 @@
 'use strict';
 
-exports.companyGET = function(args, res, next) {
+exports.companiesGET = function(args, res, next) {
   /**
    * parameters expected in the args:
-  * name (String)
-  * id (String)
-  **/
-  
-  
-  var examples = {};
-  examples['application/json'] = {
-  "zip" : "aeiou",
-  "addresss3" : "aeiou",
-  "address2" : "aeiou",
-  "phone" : "aeiou",
-  "address1" : "aeiou",
-  "pref" : "aeiou",
-  "name" : "aeiou",
-  "active" : true,
-  "id" : "aeiou",
-  "fax" : "aeiou"
-};
-  
-  if(Object.keys(examples).length > 0) {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
-  }
-  else {
-    res.end();
-  }
-  
-  
-}
-
-exports.companyListEmailGET = function(args, res, next) {
-  /**
-   * parameters expected in the args:
+  * companyName (String)
   * email (String)
+  * rowNumber (Long)
+  * currentPage (Long)
+  * pageLimit (Long)
+  * searchLimit (Long)
   **/
   
   
   var examples = {};
   examples['application/json'] = {
-  "total" : 123,
+  "pageLimit" : 123456789,
   "Companies" : [ {
     "zip" : "aeiou",
-    "addresss3" : "aeiou",
+    "companyId" : "aeiou",
+    "address3" : "aeiou",
     "address2" : "aeiou",
     "phone" : "aeiou",
     "address1" : "aeiou",
+    "companyName" : "aeiou",
     "pref" : "aeiou",
-    "name" : "aeiou",
     "active" : true,
-    "id" : "aeiou",
     "fax" : "aeiou"
   } ],
+  "totalEntries" : 123456789,
+  "rowNumber" : 123456789,
+  "currentPage" : 123456789,
   "email" : "aeiou"
 };
   
@@ -69,7 +44,7 @@ exports.companyListEmailGET = function(args, res, next) {
   
 }
 
-exports.companyCompanyIdGET = function(args, res, next) {
+exports.companiesCompanyIdGET = function(args, res, next) {
   /**
    * parameters expected in the args:
   * companyId (String)
@@ -79,14 +54,14 @@ exports.companyCompanyIdGET = function(args, res, next) {
   var examples = {};
   examples['application/json'] = {
   "zip" : "aeiou",
-  "addresss3" : "aeiou",
+  "companyId" : "aeiou",
+  "address3" : "aeiou",
   "address2" : "aeiou",
   "phone" : "aeiou",
   "address1" : "aeiou",
+  "companyName" : "aeiou",
   "pref" : "aeiou",
-  "name" : "aeiou",
   "active" : true,
-  "id" : "aeiou",
   "fax" : "aeiou"
 };
   
@@ -101,23 +76,29 @@ exports.companyCompanyIdGET = function(args, res, next) {
   
 }
 
-exports.contractListGET = function(args, res, next) {
+exports.contractsGET = function(args, res, next) {
   /**
    * parameters expected in the args:
+  * companyId (String)
   * serial (String)
   * customerContractNo (String)
   * endUser (String)
   * startDate (String)
   * endDate (String)
+  * rowNumber (Long)
+  * currentPage (Long)
+  * pageLimit (Long)
+  * searchLimit (Long)
   **/
   
   
   var examples = {};
   examples['application/json'] = {
-  "total" : "",
-  "index" : "",
-  "numOf" : 123456789,
-  "id" : "aeiou",
+  "companyId" : "aeiou",
+  "pageLimit" : 123456789,
+  "totalEntries" : "",
+  "rowNumber" : "",
+  "currentPage" : 123456789,
   "Contracts" : [ {
     "note" : "aeiou",
     "eol" : true,
@@ -131,6 +112,7 @@ exports.contractListGET = function(args, res, next) {
     "chargeOfSales" : "aeiou",
     "enteringDate" : "aeiou",
     "masterContract" : "aeiou",
+    "customerContractNo" : "aeiou",
     "contract" : "aeiou",
     "automaticRenewal" : true,
     "amountOf" : "",
@@ -141,7 +123,6 @@ exports.contractListGET = function(args, res, next) {
     "caller" : "aeiou",
     "endUser" : "aeiou",
     "contractId" : "aeiou",
-    "customerContractno" : "aeiou",
     "startDate" : "aeiou",
     "status" : "aeiou"
   } ]
@@ -158,60 +139,7 @@ exports.contractListGET = function(args, res, next) {
   
 }
 
-exports.contractListCompanyIdGET = function(args, res, next) {
-  /**
-   * parameters expected in the args:
-  * companyId (String)
-  **/
-  
-  
-  var examples = {};
-  examples['application/json'] = {
-  "total" : "",
-  "index" : "",
-  "numOf" : 123456789,
-  "id" : "aeiou",
-  "Contracts" : [ {
-    "note" : "aeiou",
-    "eol" : true,
-    "fixedDate" : "aeiou",
-    "endDate" : "aeiou",
-    "subject" : "aeiou",
-    "responsibleParty" : "aeiou",
-    "orderBy" : "aeiou",
-    "emergencyCaller" : "aeiou",
-    "type" : "aeiou",
-    "chargeOfSales" : "aeiou",
-    "enteringDate" : "aeiou",
-    "masterContract" : "aeiou",
-    "contract" : "aeiou",
-    "automaticRenewal" : true,
-    "amountOf" : "",
-    "typeOfConstraction" : "aeiou",
-    "chargeOfEnginner" : "aeiou",
-    "typeCode" : "",
-    "companyId" : "aeiou",
-    "caller" : "aeiou",
-    "endUser" : "aeiou",
-    "contractId" : "aeiou",
-    "customerContractno" : "aeiou",
-    "startDate" : "aeiou",
-    "status" : "aeiou"
-  } ]
-};
-  
-  if(Object.keys(examples).length > 0) {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
-  }
-  else {
-    res.end();
-  }
-  
-  
-}
-
-exports.contractContractIdGET = function(args, res, next) {
+exports.contractsContractIdGET = function(args, res, next) {
   /**
    * parameters expected in the args:
   * contractId (String)
@@ -232,6 +160,7 @@ exports.contractContractIdGET = function(args, res, next) {
   "chargeOfSales" : "aeiou",
   "enteringDate" : "aeiou",
   "masterContract" : "aeiou",
+  "customerContractNo" : "aeiou",
   "contract" : "aeiou",
   "automaticRenewal" : true,
   "amountOf" : "",
@@ -242,7 +171,6 @@ exports.contractContractIdGET = function(args, res, next) {
   "caller" : "aeiou",
   "endUser" : "aeiou",
   "contractId" : "aeiou",
-  "customerContractno" : "aeiou",
   "startDate" : "aeiou",
   "status" : "aeiou"
 };
@@ -258,24 +186,34 @@ exports.contractContractIdGET = function(args, res, next) {
   
 }
 
-exports.customerGET = function(args, res, next) {
+exports.customersGET = function(args, res, next) {
   /**
    * parameters expected in the args:
   * email (String)
+  * rowNumber (Long)
+  * currentPage (Long)
+  * pageLimit (Long)
+  * searchLimit (Long)
   **/
   
   
   var examples = {};
   examples['application/json'] = {
-  "firstname" : "aeiou",
-  "companyId" : "aeiou",
-  "phone" : "aeiou",
-  "mobile" : "aeiou",
-  "active" : true,
-  "id" : "aeiou",
-  "fax" : "aeiou",
-  "email" : "aeiou",
-  "lastname" : "aeiou"
+  "pageLimit" : 123456789,
+  "Customers" : [ {
+    "firstname" : "aeiou",
+    "companyId" : "aeiou",
+    "phone" : "aeiou",
+    "customerId" : "aeiou",
+    "mobile" : "aeiou",
+    "active" : true,
+    "fax" : "aeiou",
+    "email" : "aeiou",
+    "lastname" : "aeiou"
+  } ],
+  "totalEntries" : 123456789,
+  "rowNumber" : 123456789,
+  "currentPage" : 123456789
 };
   
   if(Object.keys(examples).length > 0) {
@@ -289,7 +227,7 @@ exports.customerGET = function(args, res, next) {
   
 }
 
-exports.customerCustomerIdGET = function(args, res, next) {
+exports.customersCustomerIdGET = function(args, res, next) {
   /**
    * parameters expected in the args:
   * customerId (Long)
@@ -301,9 +239,9 @@ exports.customerCustomerIdGET = function(args, res, next) {
   "firstname" : "aeiou",
   "companyId" : "aeiou",
   "phone" : "aeiou",
+  "customerId" : "aeiou",
   "mobile" : "aeiou",
   "active" : true,
-  "id" : "aeiou",
   "fax" : "aeiou",
   "email" : "aeiou",
   "lastname" : "aeiou"
@@ -320,70 +258,27 @@ exports.customerCustomerIdGET = function(args, res, next) {
   
 }
 
-exports.productGET = function(args, res, next) {
+exports.productsGET = function(args, res, next) {
   /**
    * parameters expected in the args:
+  * companyId (String)
+  * email (String)
   * customerId (String)
-  * email (String)
-  **/
-  
-  
-  var examples = {};
-  examples['application/json'] = {
-  "serviceType" : "aeiou",
-  "eol" : true,
-  "address" : "aeiou",
-  "productId" : "aeiou",
-  "dedicatedMaintenanceNo" : "aeiou",
-  "shippingDate" : "aeiou",
-  "endDate" : "aeiou",
-  "contract" : "aeiou",
-  "eos" : true,
-  "sla" : "aeiou",
-  "modelNo" : "aeiou",
-  "productListPrice" : "aeiou",
-  "productName" : "aeiou",
-  "accountMgmtNo" : "aeiou",
-  "qa" : true,
-  "typeOfService" : "aeiou",
-  "serviceModelNo" : "aeiou",
-  "shippingNo" : "aeiou",
-  "serial" : "aeiou",
-  "individualContract" : "aeiou",
-  "moniteringType" : "aeiou",
-  "startDate" : "aeiou",
-  "serviceMenu" : "aeiou",
-  "serviceTypeCode" : "aeiou"
-};
-  
-  if(Object.keys(examples).length > 0) {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
-  }
-  else {
-    res.end();
-  }
-  
-  
-}
-
-exports.productListGET = function(args, res, next) {
-  /**
-   * parameters expected in the args:
-  * email (String)
   * serial (String)
   * startDate (String)
   * endDate (String)
   * productId (String)
   * productName (String)
-  * index (Integer)
-  * max (Integer)
+  * rowNumber (Long)
+  * currentPage (Long)
+  * pageLimit (Long)
+  * searchLimit (Long)
   **/
   
   
   var examples = {};
   examples['application/json'] = {
-  "total" : 123456789,
+  "pageLimit" : 123456789,
   "Products" : [ {
     "serviceType" : "aeiou",
     "eol" : true,
@@ -410,8 +305,9 @@ exports.productListGET = function(args, res, next) {
     "serviceMenu" : "aeiou",
     "serviceTypeCode" : "aeiou"
   } ],
-  "index" : 123456789,
-  "numOf" : 123456789
+  "totalEntries" : 123456789,
+  "rowNumber" : 123456789,
+  "currentPage" : 123456789
 };
   
   if(Object.keys(examples).length > 0) {
@@ -425,58 +321,7 @@ exports.productListGET = function(args, res, next) {
   
 }
 
-exports.productListCompanyIdGET = function(args, res, next) {
-  /**
-   * parameters expected in the args:
-  * companyId (String)
-  **/
-  
-  
-  var examples = {};
-  examples['application/json'] = {
-  "total" : 123456789,
-  "Products" : [ {
-    "serviceType" : "aeiou",
-    "eol" : true,
-    "address" : "aeiou",
-    "productId" : "aeiou",
-    "dedicatedMaintenanceNo" : "aeiou",
-    "shippingDate" : "aeiou",
-    "endDate" : "aeiou",
-    "contract" : "aeiou",
-    "eos" : true,
-    "sla" : "aeiou",
-    "modelNo" : "aeiou",
-    "productListPrice" : "aeiou",
-    "productName" : "aeiou",
-    "accountMgmtNo" : "aeiou",
-    "qa" : true,
-    "typeOfService" : "aeiou",
-    "serviceModelNo" : "aeiou",
-    "shippingNo" : "aeiou",
-    "serial" : "aeiou",
-    "individualContract" : "aeiou",
-    "moniteringType" : "aeiou",
-    "startDate" : "aeiou",
-    "serviceMenu" : "aeiou",
-    "serviceTypeCode" : "aeiou"
-  } ],
-  "index" : 123456789,
-  "numOf" : 123456789
-};
-  
-  if(Object.keys(examples).length > 0) {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
-  }
-  else {
-    res.end();
-  }
-  
-  
-}
-
-exports.productProductIdGET = function(args, res, next) {
+exports.productsProductIdGET = function(args, res, next) {
   /**
    * parameters expected in the args:
   * productId (String)
@@ -522,23 +367,29 @@ exports.productProductIdGET = function(args, res, next) {
   
 }
 
-exports.salesGET = function(args, res, next) {
+exports.salesesGET = function(args, res, next) {
   /**
    * parameters expected in the args:
   * email (String)
+  * rowNumber (Long)
+  * currentPage (Long)
+  * pageLimit (Long)
+  * searchLimit (Long)
   **/
   
   
   var examples = {};
   examples['application/json'] = {
-  "total" : 123456789,
-  "Sales" : {
+  "pageLimit" : 123456789,
+  "Saleses" : [ {
     "firstname" : "aeiou",
     "salesId" : "aeiou",
     "email" : "aeiou",
     "lastname" : "aeiou"
-  },
-  "id" : "aeiou"
+  } ],
+  "totalEntries" : 123456789,
+  "rowNumber" : 123456789,
+  "currentPage" : 123456789
 };
   
   if(Object.keys(examples).length > 0) {
@@ -552,23 +403,19 @@ exports.salesGET = function(args, res, next) {
   
 }
 
-exports.salesCompanyIdGET = function(args, res, next) {
+exports.salesesUserIdGET = function(args, res, next) {
   /**
    * parameters expected in the args:
-  * companyId (String)
+  * userId (String)
   **/
   
   
   var examples = {};
   examples['application/json'] = {
-  "total" : "",
-  "Sales" : {
-    "firstname" : "aeiou",
-    "salesId" : "aeiou",
-    "email" : "aeiou",
-    "lastname" : "aeiou"
-  },
-  "id" : "aeiou"
+  "firstname" : "aeiou",
+  "salesId" : "aeiou",
+  "email" : "aeiou",
+  "lastname" : "aeiou"
 };
   
   if(Object.keys(examples).length > 0) {

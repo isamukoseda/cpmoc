@@ -2,63 +2,45 @@
 
 var url = require('url');
 
-
 // var Default = require('./DefaultService');
 var Default = require('./MocService');
 
-
-module.exports.companyGET = function companyGET (req, res, next) {
-  Default.companyGET(req.swagger.params, res, next);
+module.exports.companiesGET = function companiesGET (req, res, next) {
+  Default.companiesGET(req.swagger.params, res, next);
 };
 
-module.exports.companyListEmailGET = function companyListEmailGET (req, res, next) {
-  Default.companyListEmailGET(req.swagger.params, res, next);
+module.exports.companiesCompanyIdGET = function companiesCompanyIdGET (req, res, next) {
+  Default.companiesCompanyIdGET(req.swagger.params, res, next);
 };
 
-module.exports.companyCompanyIdGET = function companyCompanyIdGET (req, res, next) {
-  Default.companyCompanyIdGET(req.swagger.params, res, next);
+module.exports.contractsGET = function contractsGET (req, res, next) {
+  Default.contractsGET(req.swagger.params, res, next);
 };
 
-module.exports.contractListGET = function contractListGET (req, res, next) {
-  Default.contractListGET(req.swagger.params, res, next);
+module.exports.contractsContractIdGET = function contractsContractIdGET (req, res, next) {
+  Default.contractsContractIdGET(req.swagger.params, res, next);
 };
 
-module.exports.contractListCompanyIdGET = function contractListCompanyIdGET (req, res, next) {
-  Default.contractListCompanyIdGET(req.swagger.params, res, next);
+module.exports.customersGET = function customersGET (req, res, next) {
+  Default.customersGET(req.swagger.params, res, next);
 };
 
-module.exports.contractContractIdGET = function contractContractIdGET (req, res, next) {
-  Default.contractContractIdGET(req.swagger.params, res, next);
+module.exports.customersCustomerIdGET = function customersCustomerIdGET (req, res, next) {
+  Default.customersCustomerIdGET(req.swagger.params, res, next);
 };
 
-module.exports.customerGET = function customerGET (req, res, next) {
-  Default.customerGET(req.swagger.params, res, next);
+module.exports.productsGET = function productsGET (req, res, next) {
+  Default.productsGET(req.swagger.params, res, next);
 };
 
-module.exports.customerCustomerIdGET = function customerCustomerIdGET (req, res, next) {
-  Default.customerCustomerIdGET(req.swagger.params, res, next);
+module.exports.productsProductIdGET = function productsProductIdGET (req, res, next) {
+  Default.productsProductIdGET(req.swagger.params, res, next);
 };
 
-module.exports.productGET = function productGET (req, res, next) {
-  Default.productGET(req.swagger.params, res, next);
+module.exports.salesesGET = function salesesGET (req, res, next) {
+  Default.salesesGET(req.swagger.params, res, next);
 };
 
-module.exports.productListGET = function productListGET (req, res, next) {
-  Default.productListGET(req.swagger.params, res, next);
-};
-
-module.exports.productListCompanyIdGET = function productListCompanyIdGET (req, res, next) {
-  Default.productListCompanyIdGET(req.swagger.params, res, next);
-};
-
-module.exports.productProductIdGET = function productProductIdGET (req, res, next) {
-  Default.productProductIdGET(req.swagger.params, res, next);
-};
-
-module.exports.salesGET = function salesGET (req, res, next) {
-  Default.salesGET(req.swagger.params, res, next);
-};
-
-module.exports.salesCompanyIdGET = function salesCompanyIdGET (req, res, next) {
-  Default.salesCompanyIdGET(req.swagger.params, res, next);
+module.exports.salesesUserIdGET = function salesesUserIdGET (req, res, next) {
+  Default.salesesUserIdGET(req.swagger.params, res, next);
 };

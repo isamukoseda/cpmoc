@@ -4,7 +4,7 @@ var customer_data = {
   "customerId" : "CPY9101-0001",
   "firstname" : "土屋",
   "lastname" : "強",
-  "companyId" : "CUS9101",
+  "companyId" : "CPY9101",
   "email" : "t-tuchiya@xseed.co.jp",
   "phone" : "03-9101-0001",
   "mobile" : "080-9101-0001",

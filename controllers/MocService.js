@@ -157,7 +157,7 @@ var contract_data = {
     "contract" : "DISC9101-0000-00001",
     "customerContractNo" : "顧客契約番号：",
     "orderBy" : "発注元：",
-    "responsibleParty" : "顧客担当：太郎くん",
+    "responsibleParty" : "コアルータン",
     "caller" : "コール元会社名：なし",
     "endDate" : "2017/03/31",
     "fixedDate" : "2016/03/25",

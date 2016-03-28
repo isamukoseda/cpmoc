@@ -237,7 +237,7 @@ exports.companiesGET = function(args, res, next) {
             examples['application/json'] = companies_data3;
         }
     } else {
-        examples['application/json'] = companies_data3;
+        examples['application/json'] = companies_data1;
     }
 
   if(Object.keys(examples).length > 0) {
@@ -262,9 +262,11 @@ exports.companiesCompanyIdGET = function(args, res, next) {
   var companyid = args["companyId"]["value"];
   if(companyid != null) {
     if(companyid.match(/CPY901/i)) {
-      examples['application/json'] = company_data901;
+      examples['application/json'] = companys_data1;
     } else if (companyid.match(/CPY903/i)) {
-      examples['application/json'] = company_data903;
+      examples['application/json'] = companys_data3;
+    } else {
+      examples['application/json'] = companys_data1;
     }
   }
 

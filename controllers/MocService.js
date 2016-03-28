@@ -1,9 +1,9 @@
 'use strict';
 
-var customer_data = {
+var customer_data901 = {
   "customerId" : "CPY9101-0001",
-  "firstname" : "土屋",
-  "lastname" : "強",
+  "firstname" : "強",
+  "lastname" : "土屋",
   "companyId" : "CPY9101",
   "email" : "t-tuchiya@xseed.co.jp",
   "phone" : "03-9101-0001",
@@ -12,14 +12,53 @@ var customer_data = {
   "active" : true
 };
 
-var customers_data = {
+var customers_data901 = {
   "totalEntries" : 1,
   "rowNumber" : 1,
   "currentPage" : 1,
   "pageLimit" : 1,
-  "Customers" : [ customer_data]
+  "Customers" : [ customer_data901]
 };
-    
+
+var customer_data903 = {
+  "customerId" : "CPY9103-1001",
+  "firstname" : "勇",
+  "lastname" : "小瀬田",
+  "companyId" : "CPY9103",
+  "email" : "koseda@hicom.fwa.hamanasu.com",
+  "phone" : "0126-25-8101",
+  "mobile" : "",
+  "fax" : "",
+  "active" : true
+};
+
+var customers_data903 = {
+  "totalEntries" : 1,
+  "rowNumber" : 1,
+  "currentPage" : 1,
+  "pageLimit" : 1,
+  "Customers" : [ customer_data903]
+};
+
+var customer_data999 = {
+  "customerId" : "CPY999-0001",
+  "firstname" : "NO DATA",
+  "lastname" : "",
+  "companyId" : "CPY999",
+  "email" : "",
+  "phone" : "",
+  "mobile" : "",
+  "fax" : "",
+  "active" : true
+};
+
+var customers_data999 = {
+  "totalEntries" : 1,
+  "rowNumber" : 1,
+  "currentPage" : 1,
+  "pageLimit" : 1,
+  "Customers" : [ customer_data999]
+};
 
 var company_data901 = {
   "companyId" : "CPY9101",
@@ -47,14 +86,14 @@ var company_data902 = {
 };
 var company_data903 = {
   "companyId" : "CPY9103",
-  "companyName" : "株式会社９１０３",
+  "companyName" : "株式会社はまなすインフォメーション",
   "zip" : "111-1111",
-  "pref" : "東京都",
-  "address1" : "千代田区",
-  "address2" : "丸の内",
-  "address3" : "丸々ビルディング",
-  "phone" : "03-1111-1111",
-  "fax" : "03-1111-1112",
+  "pref" : "北海道",
+  "address1" : "岩見沢市",
+  "address2" : "有明町南1-20",
+  "address3" : "岩見沢市自治体ネットワークセンター3F",
+  "phone" : "0126-25-8101",
+  "fax" : "",
   "active" : true
 };
 
@@ -73,16 +112,16 @@ var companies_data2 = {
   "currentPage" : 1,
   "pageLimit" : 20,
   "email" : "jiro-demo2@netone.co.jp",
-  "Companies" : [company_data902, company_data903]
+  "Companies" : [company_data902, company_data901]
 };
 
 var companies_data3 = {
-  "totalEntries" : 3,
+  "totalEntries" : 1,
   "rowNumber" : 1,
   "currentPage" : 1,
   "pageLimit" : 20,
   "email" : "saburo@example.com",
-  "Companies" : [company_data901, company_data902, company_data903]
+  "Companies" : [company_data903]
 };
 
 
@@ -186,7 +225,7 @@ exports.companiesGET = function(args, res, next) {
   * searchLimit (Long)
   **/
   // console.log(args);
-  
+
   var examples = {};
     var email = args["email"]["value"];
     if(email != null) {
@@ -200,7 +239,7 @@ exports.companiesGET = function(args, res, next) {
     } else {
         examples['application/json'] = companies_data3;
     }
-  
+
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -208,8 +247,8 @@ exports.companiesGET = function(args, res, next) {
   else {
     res.end();
   }
-  
-  
+
+
 }
 
 exports.companiesCompanyIdGET = function(args, res, next) {
@@ -217,11 +256,18 @@ exports.companiesCompanyIdGET = function(args, res, next) {
    * parameters expected in the args:
   * companyId (String)
   **/
-  
-  
+
+
   var examples = {};
-  examples['application/json'] = company_data901;
-  
+  var companyid = args["companyId"]["value"];
+  if(companyid != null) {
+    if(companyid.match(/CPY901/i)) {
+      examples['application/json'] = company_data901;
+    } else if (companyid.match(/CPY903/i)) {
+      examples['application/json'] = company_data903;
+    }
+  }
+
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -229,8 +275,8 @@ exports.companiesCompanyIdGET = function(args, res, next) {
   else {
     res.end();
   }
-  
-  
+
+
 }
 
 exports.contractsGET = function(args, res, next) {
@@ -247,11 +293,11 @@ exports.contractsGET = function(args, res, next) {
   * pageLimit (Long)
   * searchLimit (Long)
   **/
-  
-  
+
+
   var examples = {};
   examples['application/json'] = contracts_data;
-  
+
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -259,8 +305,8 @@ exports.contractsGET = function(args, res, next) {
   else {
     res.end();
   }
-  
-  
+
+
 }
 
 exports.contractsContractIdGET = function(args, res, next) {
@@ -268,11 +314,11 @@ exports.contractsContractIdGET = function(args, res, next) {
    * parameters expected in the args:
   * contractId (String)
   **/
-  
-  
+
+
   var examples = {};
   examples['application/json'] = contract_data;
-  
+
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -280,8 +326,8 @@ exports.contractsContractIdGET = function(args, res, next) {
   else {
     res.end();
   }
-  
-  
+
+
 }
 
 exports.customersGET = function(args, res, next) {
@@ -293,11 +339,20 @@ exports.customersGET = function(args, res, next) {
   * pageLimit (Long)
   * searchLimit (Long)
   **/
-  
-  
+
+
   var examples = {};
-  examples['application/json'] = customers_data;
-  
+  var email = args["email"]["value"];
+  if(email != null) {
+    if(email.match(/@xseed.co.jp/i)) {
+      examples['application/json'] = customers_data901;
+    } else if (email.match(/@hicom.fwa.hamanasu.com/i/)) {
+      examples['application/json'] = customers_data903;
+    } else {
+      examples['application/json'] = customers_data999;
+    }
+  }
+
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -305,8 +360,8 @@ exports.customersGET = function(args, res, next) {
   else {
     res.end();
   }
-  
-  
+
+
 }
 
 exports.customersCustomerIdGET = function(args, res, next) {
@@ -314,11 +369,11 @@ exports.customersCustomerIdGET = function(args, res, next) {
    * parameters expected in the args:
   * customerId (Long)
   **/
-  
-  
+
+
   var examples = {};
   examples['application/json'] = customer_data;
-  
+
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -326,8 +381,8 @@ exports.customersCustomerIdGET = function(args, res, next) {
   else {
     res.end();
   }
-  
-  
+
+
 }
 
 exports.productsGET = function(args, res, next) {
@@ -346,11 +401,11 @@ exports.productsGET = function(args, res, next) {
   * pageLimit (Long)
   * searchLimit (Long)
   **/
-  
-  
+
+
   var examples = {};
   examples['application/json'] = products_data;
-  
+
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -358,8 +413,8 @@ exports.productsGET = function(args, res, next) {
   else {
     res.end();
   }
-  
-  
+
+
 }
 
 exports.productsProductIdGET = function(args, res, next) {
@@ -367,11 +422,11 @@ exports.productsProductIdGET = function(args, res, next) {
    * parameters expected in the args:
   * productId (String)
   **/
-  
-  
+
+
   var examples = {};
   examples['application/json'] = product_data;
-  
+
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -379,8 +434,8 @@ exports.productsProductIdGET = function(args, res, next) {
   else {
     res.end();
   }
-  
-  
+
+
 }
 
 exports.salesesGET = function(args, res, next) {
@@ -392,11 +447,11 @@ exports.salesesGET = function(args, res, next) {
   * pageLimit (Long)
   * searchLimit (Long)
   **/
-  
-  
+
+
   var examples = {};
   examples['application/json'] = saleses_data;
-  
+
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -404,8 +459,8 @@ exports.salesesGET = function(args, res, next) {
   else {
     res.end();
   }
-  
-  
+
+
 }
 
 exports.salesesUserIdGET = function(args, res, next) {
@@ -413,11 +468,11 @@ exports.salesesUserIdGET = function(args, res, next) {
    * parameters expected in the args:
   * userId (String)
   **/
-  
-  
+
+
   var examples = {};
   examples['application/json'] = sales_data;
-  
+
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -425,7 +480,6 @@ exports.salesesUserIdGET = function(args, res, next) {
   else {
     res.end();
   }
-  
-  
-}
 
+
+}

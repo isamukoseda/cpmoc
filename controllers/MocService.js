@@ -1,9 +1,9 @@
 'use strict';
 
-var customer_data901 = {
+var customer_data9101 = {
   "customerId" : "CPY9101-0001",
-  "firstname" : "土屋",
-  "lastname" : "強",
+  "firstname" : "強",
+  "lastname" : "土屋",
   "companyId" : "CPY9101",
   "email" : "t-tuchiya@xseed.co.jp",
   "phone" : "03-9101-0001",
@@ -12,16 +12,35 @@ var customer_data901 = {
   "active" : true
 };
 
-var customers_data901 = {
+var customers_data9101 = {
   "totalEntries" : 1,
   "rowNumber" : 1,
   "currentPage" : 1,
   "pageLimit" : 1,
-  "Customers" : [ customer_data901]
+  "Customers" : [ customer_data9101]
 };
     
+var customer_data9103 = {
+  "customerId" : "CPY9103-0001",
+  "firstname" : "勇",
+  "lastname" : "小瀬田",
+  "companyId" : "CPY9103",
+  "email" : "t-tuchiya@xseed.co.jp",
+  "phone" : "03-9101-0001",
+  "mobile" : "080-9101-0001",
+  "fax" : "03-9101-0002",
+  "active" : true
+};
 
-var company_data901 = {
+var customers_data9103 = {
+  "totalEntries" : 1,
+  "rowNumber" : 1,
+  "currentPage" : 1,
+  "pageLimit" : 1,
+  "Customers" : [ customer_data9103]
+};
+
+var company_data9101 = {
   "companyId" : "CPY9101",
   "companyName" : "株式会社エクシード",
   "zip" : "141-0022",
@@ -33,7 +52,7 @@ var company_data901 = {
   "fax" : "03-6422-0022",
   "active" : true
 };
-var company_data902 = {
+var company_data9102 = {
   "companyId" : "CPY9102",
   "companyName" : "ネットワンパートナーズ株式会社",
   "zip" : "100-7026",
@@ -45,7 +64,7 @@ var company_data902 = {
   "fax" : "03-6256-0708",
   "active" : true
 };
-var company_data903 = {
+var company_data9103 = {
   "companyId" : "CPY9103",
   "companyName" : "株式会社９１０３",
   "zip" : "111-1111",
@@ -58,31 +77,31 @@ var company_data903 = {
   "active" : true
 };
 
-var companies_data1 = {
+var companies_data9101 = {
   "totalEntries" : 1,
   "rowNumber" : 1,
   "currentPage" : 1,
   "pageLimit" : 20,
   "email" : "taro-demo1@netone.co.jp",
-  "Companies" : [company_data901]
+  "Companies" : [company_data9101]
 };
 
-var companies_data2 = {
-  "totalEntries" : 2,
+var companies_data9102 = {
+  "totalEntries" : 1,
   "rowNumber" : 1,
   "currentPage" : 1,
   "pageLimit" : 20,
   "email" : "jiro-demo2@netone.co.jp",
-  "Companies" : [company_data902, company_data903]
+  "Companies" : [company_data9102]
 };
 
-var companies_data3 = {
-  "totalEntries" : 3,
+var companies_data9103 = {
+  "totalEntries" : 1,
   "rowNumber" : 1,
   "currentPage" : 1,
   "pageLimit" : 20,
   "email" : "saburo@example.com",
-  "Companies" : [company_data901, company_data902, company_data903]
+  "Companies" : [company_data9103]
 };
 
 
@@ -191,14 +210,14 @@ exports.companiesGET = function(args, res, next) {
     var email = args["email"]["value"];
     if(email != null) {
         if(email.match(/taro/i)) {
-            examples['application/json'] = companies_data1;
+            examples['application/json'] = companies_data9101;
         } else if(email.match(/jiro/i)) {
-            examples['application/json'] = companies_data2;
+            examples['application/json'] = companies_data9102;
         } else {
-            examples['application/json'] = companies_data3;
+            examples['application/json'] = companies_data9103;
         }
     } else {
-        examples['application/json'] = companies_data3;
+        examples['application/json'] = companies_data9101;
     }
   
   if(Object.keys(examples).length > 0) {
@@ -220,7 +239,7 @@ exports.companiesCompanyIdGET = function(args, res, next) {
   
   
   var examples = {};
-  examples['application/json'] = company_data901;
+  examples['application/json'] = company_data9101;
   
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
@@ -294,10 +313,19 @@ exports.customersGET = function(args, res, next) {
   * searchLimit (Long)
   **/
   
+  // console.log(args);
   
   var examples = {};
-  examples['application/json'] = customers_data901;
-  
+  var email = args["email"]["value"];
+  //console.log(email);
+  if(email != null) {
+  	if(email.match(/@xseed.co.jp$/i)) {
+  		examples['application/json'] = customers_data9101;
+  	} else if(email.match(/@hicom.fwa.hamanasu.com$/i)) {
+  		examples['application/json'] = customers_data9103;
+  	}
+  }
+    
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
@@ -317,7 +345,7 @@ exports.customersCustomerIdGET = function(args, res, next) {
   
   
   var examples = {};
-  examples['application/json'] = customer_data901;
+  examples['application/json'] = customer_data9101;
   
   if(Object.keys(examples).length > 0) {
     res.setHeader('Content-Type', 'application/json');

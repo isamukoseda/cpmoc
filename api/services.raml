@@ -1,0 +1,468 @@
+#%RAML 0.8
+---
+title: Customer Portal API
+version: 0.9
+baseUri: http://localhost:8080/v1
+documentation:
+  - title: Getting Started
+    content: |
+      This sample API has been created as part of your APIkit project. It is located in src/main/api. Feel free to poke around.
+#types: 
+#  Person:
+#    type: object
+#    properties:
+#      firstname: string
+#      lastname: string
+#      title?: string
+#  Phone:
+#    type: string
+#    pattern: "[0-9|-]+"
+#
+#    
+/customers:
+  displayName: Customers
+  #description: |
+  #  A collection of teams that are participating in La Liga. Teams API allow you add, remove and retrieve individual team information from La Liga.
+  get:
+    description: Customer information from SAP/HANA
+    queryParameters:
+      email:
+        description: |
+          Filter the list of customers by customer's email address(domain name).
+        type: string
+        required: false
+        example: unigrav0ne@gmail.com
+      rowNumber:
+        description: |
+          Filter the list of customers by display page. if no list of customers, value is 0(zero).
+        type: number
+        minimum: 0
+        required: false
+        example: 1
+      currnetPage:
+        description: |
+          Filter parameter of current display page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      pageLimit:
+        description: |
+          Filter parameter of display row limit per page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      serchLimit:
+        description: |
+          Filter parameter of search row max. max value is 500 and default value is 20.
+        type: number
+        minimum: 1
+        required: false
+        example: 20
+    responses:
+      200:
+        body:
+          application/json:
+            #schema: !include schemas/teams-schema-input.json         
+            example: !include examples/customers.json
+      400:
+        description: Invalid query supplied.
+      404: 
+        description: There are no customer data.
+
+  /{customerId}:
+    displayName: Customer
+    #description: |
+    #  A collection of teams that are participating in La Liga. Teams API allow you add, remove and retrieve individual team information from La Liga.
+    uriParameters:
+      customerId:
+        description: |
+          Customer code that identifies the Customer.
+        type: string
+        example: CPY2001-0001
+    get:
+      description: Customer information filtered by customerId.
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/customers.json
+        400:
+          description: Invalid query supplied.
+        404:
+          description: There are no customer data. 
+ 
+/companies:
+  displayName: Companies
+  #description: |
+  #  A collection of teams that are participating in La Liga. Teams API allow you add, remove and retrieve individual team information from La Liga.
+  get:
+    description: Companies information from SAP/HANA
+    queryParameters:
+      companyName:
+        description: |
+          Filter the list of companies by company's ID (uniq company-code or customer's code?).
+        type: string
+        required: false
+        example: CPY2001
+      email:
+        description: |
+          Filter the list of companies by company's ID (uniq company-code or customer's code?).
+        type: string
+        required: false
+        example: unigrav@gmail.com
+      rowNumber:
+        description: |
+          Filter the list of customers by display page. if no list of customers, value is 0(zero).
+        type: number
+        minimum: 0
+        required: false
+        example: 1
+      currnetPage:
+        description: |
+          Filter parameter of current display page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      pageLimit:
+        description: |
+          Filter parameter of display row limit per page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      serchLimit:
+        description: |
+          Filter parameter of search row max. max value is 500 and default value is 20.
+        type: number
+        minimum: 1
+        required: false
+        example: 20
+    responses:
+      200:
+        body:
+          application/json:
+            #schema: !include schemas/companies-schema-input.json
+            #example: !include examples/companies.json
+      400:
+        description: Invalid query supplied.
+      404:
+        description: There are no company data.
+  /{companyId}:
+    displayName: Company by CompanyId
+    #description: |
+    # A ....
+    uriParameters:
+      companyId:
+        description: |
+          Company code that identifies the Company.
+        type: string
+        example: CPY2001
+    get:
+      description: Company information filtered by companyId.
+      responses:
+        200:
+          body:
+            application/json:
+              #example: !include examples/companies.json
+        400:
+          description: Invalid query supplied.
+        404:
+          description: There are no company data.
+
+/saleses:
+  displayName: Saleses
+  #description: |
+  # A ...
+  get:
+    description: Our Saleses information frm SAP/HANA
+    queryParameters:
+      email:
+        description: |
+          Filter the list of saleses by company's email address.
+        type: string
+        required: false
+        example: unigrav@gmail.com
+      rowNumber:
+        description: |
+          Filter the list of saleses by display page. if no list of customers, value is 0(zero).
+        type: number
+        minimum: 0
+        required: false
+        example: 1
+      currnetPage:
+        description: |
+          Filter parameter of current display page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      pageLimit:
+        description: |
+          Filter parameter of display row limit per page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      serchLimit:
+        description: |
+          Filter parameter of search row max. max value is 500 and default value is 20.
+        type: number
+        minimum: 1
+        required: false
+        example: 20
+    responses:
+      200:
+        body:
+          application/json:
+            #example: !include eamples/saleses.json
+      400:
+        description: Invalid query supplied.
+      404:
+        description: There are no sales data.
+  /{customerId}:
+    displayName: Sales by customerId
+    #description: |
+    # A ...
+    uriParameters:
+      customerId:
+        description: |
+          User ID identifies the Sales.
+        type: string
+        example: CPY2001-0001
+    get:
+      description: Sales information filtered by customerId.
+      responses:
+        200:
+          body:
+            application/json:
+              #example: !include examples/saleses.json
+        400:
+          description: Invalid query supplied.
+        404:
+          description: There are no customer data.
+
+/contracts:
+  displayName: Contracts
+  #description: |
+  # A ...
+  get:
+    description: Contract information from SAP/HANA
+    queryParameters:
+      companyId:
+        description: |
+          Filter parameter of company ID.
+        type: string
+        required: false
+        example: CPY2001
+      serial:
+        description: |
+          Filter parameter of product serial code.
+        type: string
+        required: false
+        #example: 
+      customerContractNo:
+        description: |
+          Filter parameter of main contract code.
+        type: string
+        required: false
+        #example: 
+      enduser:
+        description: |
+          Fileter parameter of customer/end user code/name? (... not used?)
+        type: string
+        required: false
+        #example: 
+      startDate:
+        description: |
+          Filter parameter of start date. defined in RFC2616 and GMT. HTTP will use UTC, becareful
+        type: date
+        required: false
+        example: Sun, 06 Nov 1994 08:49:37 GMT
+      endDate:
+        description: |
+          Filter parameter of start date. defined in RFC2616 and GMT. HTTP will use UTC, becareful
+        type: date
+        required: false
+        example: Sun, 06 Nov 1994 08:49:37 GMT
+      rowNumber:
+        description: |
+          Filter the list of saleses by display page. if no list of customers, value is 0(zero).
+        type: number
+        minimum: 0
+        required: false
+        example: 1
+      currnetPage:
+        description: |
+          Filter parameter of current display page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      pageLimit:
+        description: |
+          Filter parameter of display row limit per page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      serchLimit:
+        description: |
+          Filter parameter of search row max. max value is 500 and default value is 20.
+        type: number
+        minimum: 1
+        required: false
+        example: 20
+    responses:
+      200:
+        body:
+          application/json:
+            #example: !include examples/contracts.json
+      400:
+        description: Invalid query supplied.
+      404:
+        description: There are no contract data.
+        
+  /{contractId}:
+    displayName: Contract filtered by ContractID
+    #description: |
+    # A ...
+    uriParameters:
+      contractId:
+        description: |
+          Contract code that identifies the Contract.
+        type: string
+        example: BC2001-00000-000001
+    get:
+      description: Contract information filtered by contractId.
+      responses:
+        200:
+          body:
+            application/json:
+              #example: !include examples/contracts.json
+        400:
+          description: Invalid query supplied.
+        404:
+          description: There are no contract data.
+          
+/products:
+  displayName: Products
+  #description: |
+  # A ...
+  get:
+    description: Products information from SAP/HANA
+    queryParameters:
+      companyId:
+        description: |
+          Filter parameter of Company ID.
+        type: string
+        required: false
+        example: CPY2001
+      contractId:
+        description: |
+          Filter parameter of contract ID.
+        type: string
+        required: false
+        example: CONT00002002
+      email:
+        description: |
+          Filter parameter of requester's email address.(Customer/Our Sales/...)
+        type: string
+        required: false
+        #example:
+      customerId:
+        description: |
+          Filter parameter of customer ID.
+        type: string
+        required: false
+        #example: 
+      serial:
+        description: |
+          Filter parameter of Product Serial Code.
+        type: string
+        required: false
+        #example: 
+      productId:
+        description: |
+          Filter parameter of Product ID.
+        type: string
+        required: false
+        #example:
+      productName:
+        description: |
+          Filter parameter of Product Name.
+        type: string
+        required: false
+        #example:
+      startDate:
+        description: |
+          Filter parameter of start date. defined in RFC2616 and GMT. HTTP will use UTC, becareful
+        type: date
+        required: false
+        example: Sun, 06 Nov 1994 08:49:37 GMT
+      endDate:
+        description: |
+          Filter parameter of start date. defined in RFC2616 and GMT. HTTP will use UTC, becareful
+        type: date
+        required: false
+        example: Sun, 06 Nov 1994 08:49:37 GMT
+      rowNumber:
+        description: |
+          Filter the list of saleses by display page. if no list of customers, value is 0(zero).
+        type: number
+        minimum: 0
+        required: false
+        example: 1
+      currnetPage:
+        description: |
+          Filter parameter of current display page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      pageLimit:
+        description: |
+          Filter parameter of display row limit per page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      serchLimit:
+        description: |
+          Filter parameter of search row max. max value is 500 and default value is 20.
+        type: number
+        minimum: 1
+        required: false
+        example: 20
+    responses:
+      200:
+        body:
+          application/json:
+            #example: !include examples/products.json
+      400:
+        description: Invalid query supplied.
+      404:
+        description: There are no product data.
+  /{productId}:
+    displayName: Product filtered by productId.
+    #description: |
+    # A ...
+    uriParameters:
+      productId:
+        description: |
+          Product code that identifies the Product.
+        type: string
+        #example:
+    get:
+      description: Product information filtered by productId.
+      responses:
+        200:
+          body:
+            application/json:
+              #example: !include examples/priducts.json
+        400:
+          description: Invalid query supplied.
+        404:
+          description: There are no product data. 

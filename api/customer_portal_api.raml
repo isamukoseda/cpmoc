@@ -1,0 +1,97 @@
+#%RAML 0.8
+---
+title: Customer Portal API
+version: 0.1
+baseUri: http://localhost:8080/v1
+
+/contracts:
+  displayName: Contracts
+  #description: |
+  # A ...
+  get:
+    description: Contract information from Fiori(SAP/HANA)
+    queryParameters:
+      companyName:
+        description: |
+          Filter parameter of company Name.
+        type: string
+        required: true
+        example: 株式会社はまなすｲﾝﾌｫﾒｰｼｮﾝ
+      requester:
+        description: |
+          Filter parameter of requester's email address.
+        type: string
+        required: true
+        example: nob@hicom.com
+      startDate:
+        description: |
+          Filter parameter of start date. defined in RFC2616 and GMT. HTTP will use UTC, becareful
+        type: date
+        required: false
+        example: Sun, 06 Nov 1994 08:49:37 GMT
+      endDate:
+        description: |
+          Filter parameter of start date. defined in RFC2616 and GMT. HTTP will use UTC, becareful
+        type: date
+        required: false
+        example: Sun, 06 Nov 1994 08:49:37 GMT
+      rowNumber:
+        description: |
+          Filter the list of saleses by display page. if no list of customers, value is 0(zero).
+        type: number
+        minimum: 0
+        required: false
+        example: 1
+      currnetPage:
+        description: |
+          Filter parameter of current display page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      pageLimit:
+        description: |
+          Filter parameter of display row limit per page.
+        type: number
+        minimum: 1
+        required: false
+        example: 1
+      serchLimit:
+        description: |
+          Filter parameter of search row max. max value is 500 and default value is 20.
+        type: number
+        minimum: 1
+        required: false
+        example: 20
+    responses:
+      200:
+        body:
+          application/json:
+            #example: !include examples/contracts.json
+      400:
+        description: Invalid query supplied.
+      404:
+        description: There are no contract data.
+        
+  /{contractId}:
+    displayName: Contract filtered by ContractID (ZcntrctNo)
+    #description: |
+    # A ...
+    uriParameters:
+      contractId:
+        description: |
+          Contract ID is ZcntrctNo（個別契約番号）.
+        type: string
+        example: SC12013301-00
+    get:
+      description: Contract information filtered by contractId(ZcntrctNo).
+      responses:
+        200:
+          body:
+            application/json:
+              #example: !include examples/contracts.json
+        400:
+          description: Invalid query supplied.
+        404:
+          description: There are no contract data.
+          

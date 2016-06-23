@@ -1,7 +1,7 @@
 #%RAML 0.8
 ---
 title: Customer Portal API
-version: 0.2
+version: 0.3
 baseUri: http://localhost:8080/v1
 
 /contracts:
@@ -11,7 +11,7 @@ baseUri: http://localhost:8080/v1
   get:
     description: Contract information from Fiori(SAP/HANA)
     queryParameters:
-      companyName:
+      companyId:
         description: |
           Filter parameter of company Name.
         type: string
@@ -21,7 +21,7 @@ baseUri: http://localhost:8080/v1
         description: |
           Filter parameter of requester's email address.
         type: string
-        required: true
+        required: false
         example: nob@hicom.com
       startDate:
         description: |
@@ -35,33 +35,12 @@ baseUri: http://localhost:8080/v1
         type: date
         required: false
         example: Sun, 06 Nov 1994 08:49:37 GMT
-      rowNumber:
-        description: |
-          Filter the list of saleses by display page. if no list of customers, value is 0(zero).
-        type: number
-        minimum: 0
-        required: false
-        example: 1
-      currnetPage:
-        description: |
-          Filter parameter of current display page.
-        type: number
-        minimum: 1
-        required: false
-        example: 1
-      pageLimit:
-        description: |
-          Filter parameter of display row limit per page.
-        type: number
-        minimum: 1
-        required: false
-        example: 1
-      serchLimit:
+      searchLimit:
         description: |
           Filter parameter of search row max. max value is 500 and default value is 20.
         type: number
-        minimum: 1
-        required: false
+        minimum: 5
+        required: true
         example: 20
     responses:
       200:
@@ -80,7 +59,7 @@ baseUri: http://localhost:8080/v1
     uriParameters:
       contractId:
         description: |
-          Contract ID is ZcntrctNo(個別契約番号)
+          Contract ID is ZcntrctNo　（個別契約番号）
         type: string
         example: SC12013301-00
     get:
@@ -115,33 +94,12 @@ baseUri: http://localhost:8080/v1
         type: string
         required: false
         example: unigrav@gmail.com
-      rowNumber:
-        description: |
-          Filter the list of saleses by display page. if no list of customers, value is 0(zero).
-        type: number
-        minimum: 0
-        required: false
-        example: 1
-      currnetPage:
-        description: |
-          Filter parameter of current display page.
-        type: number
-        minimum: 1
-        required: false
-        example: 1
-      pageLimit:
-        description: |
-          Filter parameter of display row limit per page.
-        type: number
-        minimum: 1
-        required: false
-        example: 1
-      serchLimit:
+      searchLimit:
         description: |
           Filter parameter of search row max. max value is 500 and default value is 20.
         type: number
-        minimum: 1
-        required: false
+        minimum: 5
+        required: true
         example: 20
     responses:
       200:

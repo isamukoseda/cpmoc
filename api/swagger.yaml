@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "0.0.8"
+  version: "0.0.9"
   title: "Customer Portal API"
 basePath: "/v1"
 paths:
@@ -15,29 +15,11 @@ paths:
         description: "会社名称"
         required: false
         type: "string"
-      - name: "email"
+      - name: "requester"
         in: "query"
         description: "リクエスター（顧客または担当営業）のEmailアドレス"
-        required: false
+        required: true
         type: "string"
-      - name: "rowNumber"
-        in: "query"
-        description: "機器一覧を取得する際の開始位置（最初から取得する場合は0を設定）"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "currentPage"
-        in: "query"
-        description: "機器一覧の現在の表示ページ番号"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "pageLimit"
-        in: "query"
-        description: "１ページの最大表示行数"
-        required: false
-        type: "integer"
-        format: "int64"
       - name: "searchLimit"
         in: "query"
         description: "最大該当数（最大取得数：デフォルト値は20最大値は500）"
@@ -65,11 +47,16 @@ paths:
         required: true
         type: "string"
         format: "string"
+      - name: "requester"
+        in: "query"
+        description: "リクエスター（顧客または担当営業）のEmailアドレス"
+        required: false
+        type: "string"
       responses:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/Company"
+            $ref: "#/definitions/SapCompanyName"
         400:
           description: "Invalid ID supplied"
         404:
@@ -138,7 +125,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/Contracts"
+            $ref: "#/definitions/SapListContracts"
         400:
           description: "Invalied query supplied"
         404:
@@ -158,7 +145,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/Contract"
+            $ref: "#/definitions/SapContranct"
         400:
           description: "Invalied ID supplied"
         404:
@@ -235,67 +222,44 @@ paths:
       description: "保守契約済み製品リスト情報を提供"
       operationId: "productsGET"
       parameters:
+      - name: "conId"
+        in: "query"
+        description: "契約ID"
+        required: false
+        type: "string"
       - name: "companyId"
         in: "query"
         description: "会社ID（SAP/HANAで管理している会社コード/取引先ID,受注先IDで使用しているIDを想定）"
         required: false
         type: "string"
-      - name: "email"
+      - name: "requester"
         in: "query"
         description: "リクエスターのEmailアドレス"
         required: false
         type: "string"
-      - name: "customerId"
+      - name: "contStartDate"
         in: "query"
-        description: "顧客ID"
+        description: "保守契約開始日（指定した日付から保守契約が開始となるプロダクトをピックアップする）"
         required: false
         type: "string"
-      - name: "serial"
+      - name: "contEndDate"
         in: "query"
-        description: "シリアル番号"
+        description: "保守契約終了日（指定した日付までに保守契約終了となるプロダクトをピックアップする）"
         required: false
         type: "string"
-      - name: "startDate"
+      - name: "eolDate"
         in: "query"
-        description: "契約開始日"
+        description: "EOL日付（指定した日付までにEOLとなっているプロダクトをピックアップする）"
         required: false
         type: "string"
-      - name: "endDate"
+      - name: "eosDate"
         in: "query"
-        description: "契約終了日"
+        description: "EOS日付（指定した日付までにEOSとなっているプロダクトをピックアップする）"
         required: false
         type: "string"
-      - name: "productId"
-        in: "query"
-        description: "製品ID"
-        required: false
-        type: "string"
-      - name: "productName"
-        in: "query"
-        description: "製品テキスト"
-        required: false
-        type: "string"
-      - name: "rowNumber"
-        in: "query"
-        description: "機器一覧を取得する際の開始位置（最初から取得する場合は0を設定）"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "currentPage"
-        in: "query"
-        description: "機器一覧の現在の表示ページ番号"
-        required: false
-        type: "integer"
-        format: "int64"
-      - name: "pageLimit"
-        in: "query"
-        description: "１ページの最大表示行数"
-        required: false
-        type: "integer"
-        format: "int64"
       - name: "searchLimit"
         in: "query"
-        description: "最大該当数（最大取得数：デフォルト値は20最大値は500）"
+        description: "最大該当数（最大取得数：デフォルト値は20最大値は100）"
         required: false
         type: "integer"
         format: "int64"
@@ -303,7 +267,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/Products"
+            $ref: "#/definitions/SapProducts"
         400:
           description: "Invalied query supplied"
         404:
@@ -324,7 +288,7 @@ paths:
         200:
           description: "OK"
           schema:
-            $ref: "#/definitions/Product"
+            $ref: "#/definitions/SapProduct"
         400:
           description: "Invalied ID supplied"
         404:
@@ -459,6 +423,26 @@ definitions:
         items:
           $ref: "#/definitions/Customer"
     description: "顧客情報リスト"
+  SapMetaData:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "string"
+      url:
+        type: "string"
+        format: "string"
+      type:
+        type: "string"
+        format: "string"
+      etag:
+        type: "string"
+        format: "string"
+  SapCompanyName:
+    type: "object"
+    properties:
+      d:
+        $ref: "#/definitions/SapCompanyName_d"
   Company:
     type: "object"
     required:
@@ -571,6 +555,75 @@ definitions:
         items:
           $ref: "#/definitions/Sales"
     description: "担当営業リスト"
+  SapListContract:
+    type: "object"
+    properties:
+      __metadata:
+        $ref: "#/definitions/SapCompanyName_d___metadata"
+      ZcontStartDateLow:
+        type: "string"
+        format: "string"
+      ZcntrctNo:
+        type: "string"
+        format: "string"
+      ZcontStartDateHigh:
+        type: "string"
+        format: "string"
+      Zconid:
+        type: "string"
+        format: "string"
+      ZcontEndDateLow:
+        type: "string"
+        format: "string"
+      ZcontStartDate:
+        type: "string"
+        format: "string"
+      ZcontEndDateHigh:
+        type: "string"
+        format: "string"
+      ZcontEndDate:
+        type: "string"
+        format: "string"
+      ZcontText:
+        type: "string"
+        format: "string"
+      ZcontorsName:
+        type: "string"
+        format: "string"
+      Zuser:
+        type: "string"
+        format: "string"
+      ZcallerName:
+        type: "string"
+        format: "string"
+      ZsalesReptive:
+        type: "string"
+        format: "string"
+      ZtechReptive:
+        type: "string"
+        format: "string"
+      ZcustContNo:
+        type: "string"
+        format: "string"
+      ZserialNo:
+        type: "string"
+        format: "string"
+      Zoverflg:
+        type: "string"
+        format: "string"
+      Zurl:
+        type: "string"
+        format: "string"
+  SapListContracts:
+    type: "object"
+    properties:
+      d:
+        $ref: "#/definitions/SapListContracts_d"
+  SapContranct:
+    type: "object"
+    properties:
+      d:
+        $ref: "#/definitions/SapContranct_d"
   Contract:
     type: "object"
     required:
@@ -682,6 +735,161 @@ definitions:
         items:
           $ref: "#/definitions/Contract"
     description: "保守契約リスト"
+  SapListProduct:
+    type: "object"
+    properties:
+      __metadata:
+        $ref: "#/definitions/SapCompanyName_d___metadata"
+      ZproductId:
+        type: "string"
+        format: "string"
+        description: "プロダクトID（製品を特定する為のIDを追加）"
+      Zconid:
+        type: "string"
+        format: "string"
+        description: "（保守）契約ID"
+      ZcntrctNo:
+        type: "string"
+        format: "string"
+        description: "個別契約番号"
+      ZcontStartDate:
+        type: "string"
+        format: "string"
+        description: "契約開始日付"
+      ZcontEndData:
+        type: "string"
+        format: "string"
+        description: "契約終了日付"
+      ZsalesOrgName:
+        type: "string"
+        format: "string"
+        description: "販売組織名称"
+      ZsalesOfficeName:
+        type: "string"
+        format: "string"
+        description: "営業署名称"
+      ZsalesGroupName:
+        type: "string"
+        format: "string"
+        description: "営業グループ名称"
+      ZproductMdlNo:
+        type: "string"
+        format: "string"
+        description: "機器型番"
+      ZmanufacMdlNo:
+        type: "string"
+        format: "string"
+        description: "メーカー型番"
+      ZproductTxt:
+        type: "string"
+        format: "string"
+        description: "品名"
+      ZserialNo:
+        type: "string"
+        format: "string"
+        description: "シリアル番号"
+      ZprodEolDate:
+        type: "string"
+        format: "string"
+        description: "EOL"
+      ZprodEosData:
+        type: "string"
+        format: "string"
+        description: "EOS"
+      ZsrvMdlNo:
+        type: "string"
+        format: "string"
+        description: "サービス型番"
+      ZmenuName:
+        type: "string"
+        format: "string"
+        description: "サービスメニュー名称"
+      ZserviceType:
+        type: "string"
+        format: "string"
+        description: "サービス種別（摘要）"
+      ZprodSlaText:
+        type: "string"
+        format: "string"
+        description: "SLA（摘要）"
+      Zmenge:
+        type: "integer"
+        format: "int64"
+        description: "数量"
+      ZprodPrice:
+        type: "integer"
+        format: "int64"
+        description: "製品定価"
+      ZfyearStartDate:
+        type: "string"
+        format: "string"
+        description: "初年度契約開始日"
+      ZfyearEndDate:
+        type: "string"
+        format: "string"
+        description: "初年度契約終了日"
+      ZnyearStartDate:
+        type: "string"
+        format: "string"
+        description: "次年度契約開始日"
+      ZnyearEndDate:
+        type: "string"
+        format: "string"
+        description: "次年度契約終了日"
+      Zhost:
+        type: "string"
+        format: "string"
+        description: "ホスト名"
+      ZcustSys01:
+        type: "string"
+        format: "string"
+        description: "顧客システム名１"
+      ZcustSys02:
+        type: "string"
+        format: "string"
+        description: "顧客システム名２"
+      ZshipDate:
+        type: "string"
+        format: "string"
+        description: "出荷日"
+      ZcustConstId:
+        type: "string"
+        format: "string"
+        description: "顧客機器構成ID"
+      ZkikiQuotPosnr:
+        type: "string"
+        format: "string"
+        description: "機器見積明細番号"
+      Zposnr:
+        type: "string"
+        format: "string"
+        description: "受注明細番号"
+      ZposnrVl:
+        type: "string"
+        format: "string"
+        description: "出荷明細番号"
+      ZvbelnVa:
+        type: "string"
+        format: "string"
+        description: "受注番号"
+      Zmemo1:
+        type: "string"
+        format: "string"
+        description: "メモ１"
+      Zmemo2:
+        type: "string"
+        format: "string"
+        description: "メモ２"
+  SapProduct:
+    type: "object"
+    properties:
+      d:
+        $ref: "#/definitions/SapProduct_d"
+  SapProducts:
+    type: "object"
+    properties:
+      d:
+        $ref: "#/definitions/SapProducts_d"
   Product:
     type: "object"
     required:
@@ -781,3 +989,259 @@ definitions:
         items:
           $ref: "#/definitions/Product"
     description: "商品情報リスト"
+  SapCompanyName_d___metadata:
+    properties:
+      id:
+        type: "string"
+        format: "string"
+      url:
+        type: "string"
+        format: "string"
+      type:
+        type: "string"
+        format: "string"
+      etag:
+        type: "string"
+        format: "string"
+  SapCompanyName_d:
+    properties:
+      __metadata:
+        $ref: "#/definitions/SapCompanyName_d___metadata"
+      name1:
+        type: "string"
+        format: "string"
+  SapListContracts_d:
+    properties:
+      results:
+        type: "array"
+        items:
+          $ref: "#/definitions/SapListContract"
+  SapContranct_d:
+    properties:
+      __metadata:
+        $ref: "#/definitions/SapCompanyName_d___metadata"
+      ZcontType:
+        type: "string"
+        format: "string"
+      Zurl:
+        type: "string"
+        format: "string"
+      ZcontNo:
+        type: "string"
+        format: "string"
+      ZcntrctNo:
+        type: "string"
+        format: "string"
+      Zguid:
+        type: "string"
+        format: "string"
+      Zconid:
+        type: "string"
+        format: "string"
+      ZibIbase:
+        type: "string"
+        format: "string"
+      Ztext:
+        type: "string"
+        format: "string"
+      ZdeliDest:
+        type: "string"
+        format: "string"
+      ZcustReptive:
+        type: "string"
+        format: "string"
+      ZcallCompName:
+        type: "string"
+        format: "string"
+      ZnhCallerInfo:
+        type: "string"
+        format: "string"
+      ZsalesReptive:
+        type: "string"
+        format: "string"
+      ZtechReptive:
+        type: "string"
+        format: "string"
+      ZcustContNo:
+        type: "string"
+        format: "string"
+      Zstatus:
+        type: "string"
+        format: "string"
+      ZofferedPrice:
+        type: "string"
+        format: "string"
+      ZupdateFlg:
+        type: "string"
+        format: "string"
+      ZcontStartDate:
+        type: "string"
+        format: "string"
+      ZcontEndDate:
+        type: "string"
+        format: "string"
+      ZexecuteDate:
+        type: "string"
+        format: "string"
+      ZcontFixDate:
+        type: "string"
+        format: "string"
+      Zeolmainte:
+        type: "string"
+        format: "string"
+      ZconstDiv:
+        type: "string"
+        format: "string"
+      ZsalesOrg:
+        type: "string"
+        format: "string"
+  SapProduct_d:
+    properties:
+      __metadata:
+        $ref: "#/definitions/SapCompanyName_d___metadata"
+      ZproductId:
+        type: "string"
+        format: "string"
+        description: "プロダクトID（製品を特定する為のIDを追加）"
+      Zconid:
+        type: "string"
+        format: "string"
+        description: "（保守）契約ID"
+      ZcntrctNo:
+        type: "string"
+        format: "string"
+        description: "個別契約番号"
+      ZcontStartDate:
+        type: "string"
+        format: "string"
+        description: "契約開始日付"
+      ZcontEndData:
+        type: "string"
+        format: "string"
+        description: "契約終了日付"
+      ZsalesOrgName:
+        type: "string"
+        format: "string"
+        description: "販売組織名称"
+      ZsalesOfficeName:
+        type: "string"
+        format: "string"
+        description: "営業署名称"
+      ZsalesGroupName:
+        type: "string"
+        format: "string"
+        description: "営業グループ名称"
+      ZproductMdlNo:
+        type: "string"
+        format: "string"
+        description: "機器型番"
+      ZmanufacMdlNo:
+        type: "string"
+        format: "string"
+        description: "メーカー型番"
+      ZproductTxt:
+        type: "string"
+        format: "string"
+        description: "品名"
+      ZserialNo:
+        type: "string"
+        format: "string"
+        description: "シリアル番号"
+      ZprodEolDate:
+        type: "string"
+        format: "string"
+        description: "EOL"
+      ZprodEosData:
+        type: "string"
+        format: "string"
+        description: "EOS"
+      ZsrvMdlNo:
+        type: "string"
+        format: "string"
+        description: "サービス型番"
+      ZmenuName:
+        type: "string"
+        format: "string"
+        description: "サービスメニュー名称"
+      ZserviceType:
+        type: "string"
+        format: "string"
+        description: "サービス種別（摘要）"
+      ZprodSlaText:
+        type: "string"
+        format: "string"
+        description: "SLA（摘要）"
+      Zmenge:
+        type: "integer"
+        format: "int64"
+        description: "数量"
+      ZprodPrice:
+        type: "integer"
+        format: "int64"
+        description: "製品定価"
+      ZfyearStartDate:
+        type: "string"
+        format: "string"
+        description: "初年度契約開始日"
+      ZfyearEndDate:
+        type: "string"
+        format: "string"
+        description: "初年度契約終了日"
+      ZnyearStartDate:
+        type: "string"
+        format: "string"
+        description: "次年度契約開始日"
+      ZnyearEndDate:
+        type: "string"
+        format: "string"
+        description: "次年度契約終了日"
+      Zhost:
+        type: "string"
+        format: "string"
+        description: "ホスト名"
+      ZcustSys01:
+        type: "string"
+        format: "string"
+        description: "顧客システム名１"
+      ZcustSys02:
+        type: "string"
+        format: "string"
+        description: "顧客システム名２"
+      ZshipDate:
+        type: "string"
+        format: "string"
+        description: "出荷日"
+      ZcustConstId:
+        type: "string"
+        format: "string"
+        description: "顧客機器構成ID"
+      ZkikiQuotPosnr:
+        type: "string"
+        format: "string"
+        description: "機器見積明細番号"
+      Zposnr:
+        type: "string"
+        format: "string"
+        description: "受注明細番号"
+      ZposnrVl:
+        type: "string"
+        format: "string"
+        description: "出荷明細番号"
+      ZvbelnVa:
+        type: "string"
+        format: "string"
+        description: "受注番号"
+      Zmemo1:
+        type: "string"
+        format: "string"
+        description: "メモ１"
+      Zmemo2:
+        type: "string"
+        format: "string"
+        description: "メモ２"
+  SapProducts_d:
+    properties:
+      results:
+        type: "array"
+        items:
+          $ref: "#/definitions/SapListProduct"

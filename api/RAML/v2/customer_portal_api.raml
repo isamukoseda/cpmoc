@@ -1,0 +1,379 @@
+#%RAML 1.0
+---
+title: Contract Information API for CustomerPortal
+version: 2.0
+baseUri: http://localhost:8080/
+
+#
+# for version 1 API Definitions
+#  called native OData REST API
+#  this version not supports
+#   - search key: (Company) ID
+#   - list of Devices
+#   - not implements search key:
+#     - account id
+#     - end user
+/v1/contracts:
+  displayName: Contracts
+  #description: |
+  # A ...
+  get:
+    description: Contract information from Fiori(SAP/HANA)
+    queryParameters:
+      companyId:
+        description: |
+          Filter parameter of company Name.
+        type: string
+        required: true
+        #example: 株式会社はまなすｲﾝﾌｫﾒｰｼｮﾝ
+      requester:
+        description: |
+          Filter parameter of requester's email address.
+        type: string
+        required: false
+        example: nob@hicom.com
+      startDate:
+        description: |
+          Filter parameter of start date. defined in RFC2616 and GMT. HTTP will use UTC, becareful
+        type: datetime
+        required: false
+#        example: Sun, 06 Nov 1994 08:49:37 GMT
+        format: rfc2616
+      endDate:
+        description: |
+          Filter parameter of start date. defined in RFC2616 and GMT. HTTP will use UTC, becareful
+        type: datetime
+        required: false
+#        example: Sun, 06 Nov 1994 08:49:37 GMT
+        format: rfc2616
+      searchLimit:
+        description: |
+          Filter parameter of search row max. max value is 500 and default value is 20.
+        type: number
+        minimum: 5
+        required: true
+        example: 20
+    responses:
+      200:
+        body:
+          application/json:
+            #example: !include examples/contracts.json
+      400:
+        description: Invalid query supplied.
+      404:
+        description: There are no contract data.
+
+  /{contractId}:
+    displayName: Contract filtered by ContractID (ZcntrctNo)
+    #description: |
+    # A ...
+    uriParameters:
+      contractId:
+        description: |
+          Contract ID is ZcntrctNo　（個別契約番号）
+        type: string
+        example: SC12013301-00
+    get:
+      description: Contract information filtered by contractId(ZcntrctNo).
+      responses:
+        200:
+          body:
+            application/json:
+              #example: !include examples/contracts.json
+        400:
+          description: Invalid query supplied.
+        404:
+          description: There are no contract data.
+
+/v1/companies:
+  displayName: Companies
+  #description: |
+  #  A collection of teams that are participating in La Liga. Teams API allow you add, remove and retrieve individual team information from La Liga.
+  get:
+    description: Companies information from SAP/HANA
+    queryParameters:
+      companyName:
+        description: |
+          Filter the list of companies by company's ID (uniq company-code or customer's code?).
+        type: string
+        required: false
+        example: CPY2001
+      email:
+        description: |
+          Filter the list of companies by company's ID (uniq company-code or customer's code?).
+        type: string
+        required: false
+        example: unigrav@gmail.com
+      searchLimit:
+        description: |
+          Filter parameter of search row max. max value is 500 and default value is 20.
+        type: number
+        minimum: 5
+        required: true
+        example: 20
+    responses:
+      200:
+        body:
+          application/json:
+          #schema: !include schemas/companies-schema-input.json
+          #example: !include examples/companies.json
+      400:
+        description: Invalid query supplied.
+      404:
+        description: There are no company data.
+
+  /{companyId}:
+    displayName: Company by CompanyId
+    #description: |
+      # A ....
+    uriParameters:
+      companyId:
+        description: |
+          Company code that identifies the Company.
+        type: string
+        example: CPY2001
+    get:
+      description: Company information filtered by companyId.
+      responses:
+        200:
+          body:
+            application/json:
+            #example: !include examples/companies.json
+        400:
+          description: Invalid query supplied.
+        404:
+          description: There are no company data.
+
+
+##
+## version 2 API Definitions
+##
+
+types:
+  EndUser:
+    type: number
+    default: 1
+  SoldToParty:
+    type: number
+    default: 2
+  Account:
+    type: number
+    default: 3
+  Reseller:
+    type: number
+    default: 7
+  Sales:
+    type: number
+    default: 9
+  AccountType: [ EndUser | SoldToParty | Account | Reseller | Sales ]
+#
+#
+/v2:
+
+  description: |
+    保守契約情報API version 2
+  /contracts:
+    displayName: Contrancts Data
+    get:
+      description: Contracnts data
+#      headers:
+#        Date:
+#          type: datetime
+#          format: rfc2616
+#          required: true
+#        User-Agent:
+#          type: string
+#          required: true
+      queryParameters:
+        accountid:
+          type: string
+          required: true
+        accounttype:
+          type: AccountType
+        requester:
+          type: string
+          required: true
+        startDate:
+          type: datetime
+          format: rfc2616
+          required: false
+        endDate:
+          type: datetime
+          format: rfc2616
+          required: false
+        page:
+          type: number
+          format: int64
+          required: true
+        per_page:
+          type: number
+          format: int
+          required: true
+      responses:
+        200:
+          headers:
+            Link:
+              required: false
+            X-Total-Count:
+              required: false
+          body:
+            application/json:
+        400:
+          description: Invalid query supplied.
+          body:
+            application/json:
+              example: |
+                {
+                  "code": 400,
+                  "status": "error",
+                  "message": "Invalid query supplied."
+                }
+        404:
+          description: There are no Contract Data.
+          body:
+            application/json:
+              example: |
+                {
+                  "code": 404,
+                  "status": "error",
+                  "message": "There are no Contract Data."
+                }
+    /{contractid}:
+      displayName: Contract by ContractID
+      uriParameters:
+        contractid:
+          description: |
+            Contract Data that identifies the ContractID(10 digit).
+          type: string
+          example: "/0005188306"
+          required: true
+      get:
+        description: Contrancts data filtered by CompanyID.
+        queryParameters:
+          requester:
+            type: string
+            required: true
+        responses:
+          200:
+            body:
+              application/json:
+          400:
+            description: Invalid query supplied.
+            body:
+              application/json:
+                example: |
+                  {
+                    "code": 400,
+                    "status": "error",
+                    "message": "Invalid query supplied."
+                  }
+          404:
+            description: There are no Contranct Data.
+            body:
+              application/json:
+                example: |
+                  {
+                    "code": 404,
+                    "status": "error",
+                    "message": "There are no Contract Data."
+                  }
+    /equipments/{ibibase}:
+      description:
+      uriParameters:
+        ibibase:
+          description: 設置ベース（Zibibase）例：000000000000237210
+          type: string
+          required: true
+#          example: ??????(18-digit code ?)
+      get:
+        description:
+        queryParameters:
+          requester:
+            type: string
+            required: true
+          page:
+            type: number
+            format: int64
+            required: true
+          per_page:
+            type: number
+            format: int
+            required: true
+        responses:
+          200:
+            headers:
+              Link:
+                required: false
+              X-Total-Count:
+                required: false
+            body:
+              application/json:
+          400:
+            description: Invalid query supplied.
+            body:
+              application/json:
+                example: |
+                  {
+                    "code": 400,
+                    "status": "error",
+                    "message": "Invalid query supplied."
+                  }
+          404:
+            description: There are no Contranct Data.
+            body:
+              application/json:
+                example: |
+                  {
+                    "code": 404,
+                    "status": "error",
+                    "message": "There are no Contract Data."
+                  }
+  #
+  #
+  /companies:
+    /{companyid}:
+      description:
+      uriParameters:
+        companyid:
+          description: 会社コード
+          type: string
+          required: true
+      get:
+        description: Get company data
+        queryParameters:
+          requester:
+            type: string
+            required: true
+        responses:
+          200:
+            body:
+              application/json:
+#                example: |
+#                  {
+#                    "status": 200,
+#                    "data": {
+#                        "d": {
+#                            "name1": "Company Name"
+#                          }
+#                      }
+#                  }
+          400:
+            description: Invalid query supplied.
+            body:
+              application/json:
+                example: |
+                  {
+                    "code": 400,
+                    "status": "error",
+                    "message": "Invalid query supplied."
+                  }
+          404:
+            description: There are no Company Data.
+            body:
+              application/json:
+                example: |
+                  {
+                    "code": 404,
+                    "status": "error",
+                    "message": "There are no Contract Data."
+                  }

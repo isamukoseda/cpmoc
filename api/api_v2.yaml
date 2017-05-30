@@ -1,17 +1,17 @@
 swagger: '2.0'
 info:
   version: 2.0.1
-  title: Netone OpenAPI v2.0
+  title: OpenAPI v2.0
   description: description
   termsOfService: terms
-  contact:
-    name: OpenAPI Support Staff
-    url: https://apigw.netone.co.jp/contact
-    email: support-openapi@netone.co.jp
-  license:
-    name: MIT
-    url: http://opensource.org/licenses/MIT
-host: apigw.netone.co.jp
+#  contact:
+#    name: OpenAPI Support Staff
+#    url: https://apigw.unigrav-one/contact
+#    email: support-openapi@unigrav-one
+#  license:
+#    name: ???
+#    url: ???
+#host: apigw.unigrav-one
 basePath: /v2
 schemes:
   - https
